@@ -13,7 +13,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@app/infra': path.resolve(__dirname, './src/infra'),
-      '@app/infra/net': path.resolve(__dirname, './src/infra/net'),
+      "@assets": path.resolve(__dirname, "./src/assets"),
+      "@components": path.resolve(__dirname, "./src/components"),
+      "@features": path.resolve(__dirname, "./src/features"),
     },
   },
 });

@@ -16,22 +16,33 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
-const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
+const authResetPasswdLazyImport = createFileRoute('/(auth)/reset-passwd')()
+const authLoginLazyImport = createFileRoute('/(auth)/login')()
 
 // Create/Update Routes
-
-const AboutLazyRoute = AboutLazyImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
 
 const IndexLazyRoute = IndexLazyImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const authResetPasswdLazyRoute = authResetPasswdLazyImport
+  .update({
+    id: '/(auth)/reset-passwd',
+    path: '/reset-passwd',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./routes/(auth)/reset-passwd.lazy').then((d) => d.Route))
+
+const authLoginLazyRoute = authLoginLazyImport
+  .update({
+    id: '/(auth)/login',
+    path: '/login',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./routes/(auth)/login.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -44,11 +55,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutLazyImport
+    '/(auth)/login': {
+      id: '/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/reset-passwd': {
+      id: '/(auth)/reset-passwd'
+      path: '/reset-passwd'
+      fullPath: '/reset-passwd'
+      preLoaderRoute: typeof authResetPasswdLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -58,37 +76,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/login': typeof authLoginLazyRoute
+  '/reset-passwd': typeof authResetPasswdLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/login': typeof authLoginLazyRoute
+  '/reset-passwd': typeof authResetPasswdLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/about': typeof AboutLazyRoute
+  '/(auth)/login': typeof authLoginLazyRoute
+  '/(auth)/reset-passwd': typeof authResetPasswdLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about'
+  fullPaths: '/' | '/login' | '/reset-passwd'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about'
-  id: '__root__' | '/' | '/about'
+  to: '/' | '/login' | '/reset-passwd'
+  id: '__root__' | '/' | '/(auth)/login' | '/(auth)/reset-passwd'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  AboutLazyRoute: typeof AboutLazyRoute
+  authLoginLazyRoute: typeof authLoginLazyRoute
+  authResetPasswdLazyRoute: typeof authResetPasswdLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  AboutLazyRoute: AboutLazyRoute,
+  authLoginLazyRoute: authLoginLazyRoute,
+  authResetPasswdLazyRoute: authResetPasswdLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -102,14 +125,18 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about"
+        "/(auth)/login",
+        "/(auth)/reset-passwd"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/about": {
-      "filePath": "about.lazy.tsx"
+    "/(auth)/login": {
+      "filePath": "(auth)/login.lazy.tsx"
+    },
+    "/(auth)/reset-passwd": {
+      "filePath": "(auth)/reset-passwd.lazy.tsx"
     }
   }
 }
