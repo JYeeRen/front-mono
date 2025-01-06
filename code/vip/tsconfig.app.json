@@ -22,7 +22,13 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-    }
+      "@app/infra/net": ["./src/infra/net"],
+      "@app/infra": ["./src/infra"],
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ],
   },
   "include": ["src"]
 }

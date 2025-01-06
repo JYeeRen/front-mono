@@ -5,7 +5,7 @@ import axios, {
   type InternalAxiosRequestConfig as IARC,
   type CreateAxiosDefaults,
 } from "axios";
-import { v4 as uuidv4 } from "uuid";
+import { v4 } from "uuid";
 // import { sStorage } from "./sstorage";
 // import { ServerError } from "./error";
 import djs from "../djs";
@@ -132,7 +132,7 @@ class Net extends EventEmitter implements ApiClient {
 
   private async requestInterceptor(config: IARC): Promise<IARC> {
     config.headers = config.headers || {};
-    config.headers["X-Request-ID"] = uuidv4();
+    config.headers["X-Request-ID"] = v4();
     // config.headers.Authorization = `Bearer ${sStorage.get("token")}`;
     // config.headers.Lang = sStorage.get("lang") || "zh-CN";
     config.headers.tz = this.tz;
