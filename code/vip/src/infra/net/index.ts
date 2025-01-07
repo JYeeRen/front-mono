@@ -118,10 +118,7 @@
 
     private responseInterceptor(response: AxiosResponse<ApiRes>): AxiosResponse {
       if (response.data.code !== 0) {
-        // throw new ServerError(response.data);
-      }
-      if (response.data === null) {
-        // throw new ServerError(response.data);
+        throw new Error(`${response.config.method} ${response.config.url} => ${response.data.code} ${response.data.msg}`);
       }
       return response;
     }

@@ -23,6 +23,8 @@
     // "noUncheckedSideEffectImports": true,
     "paths": {
       "@app/infra": ["./src/infra"],
+      "@app/services": ["./src/services"],
+      "@app/hooks": ["./src/hooks"],
       "@styles/*": ["./src/styles/*"],
       "@assets/*": ["./src/assets/*"],
       "@components": ["./src/components"],
