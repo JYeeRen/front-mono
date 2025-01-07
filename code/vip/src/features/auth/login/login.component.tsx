@@ -14,7 +14,7 @@ import styles from './login.module.less';
 
 export default function Login() {
 
-  const search = useSearch({ from: '/(auth)/login' });
+  const search = useSearch({ from: '/login' });
   console.log(search);
 
   const store = useLoginStore();

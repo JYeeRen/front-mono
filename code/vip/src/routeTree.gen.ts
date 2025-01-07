@@ -13,71 +13,92 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as WaybillTrackingIndexImport } from './routes/waybill-tracking/index'
-import { Route as OrderMgtIndexImport } from './routes/order-mgt/index'
-import { Route as FinancialInfoIndexImport } from './routes/financial-info/index'
-import { Route as DataDashboardIndexImport } from './routes/data-dashboard/index'
-import { Route as AddressBookIndexImport } from './routes/address-book/index'
-import { Route as authLoginImport } from './routes/(auth)/login'
+import { Route as LoginImport } from './routes/login'
+import { Route as AuthImport } from './routes/_auth'
+import { Route as IndexImport } from './routes/index'
+import { Route as AuthWaybillTrackingImport } from './routes/_auth/waybill-tracking'
 
 // Create Virtual Routes
 
-const IndexLazyImport = createFileRoute('/')()
-const authResetPasswdLazyImport = createFileRoute('/(auth)/reset-passwd')()
+const ResetPasswordLazyImport = createFileRoute('/reset-password')()
+const ForgotPasswordLazyImport = createFileRoute('/forgot-password')()
+const AuthOrderMgtLazyImport = createFileRoute('/_auth/order-mgt')()
+const AuthFinancialInfoLazyImport = createFileRoute('/_auth/financial-info')()
+const AuthDataDashboardLazyImport = createFileRoute('/_auth/data-dashboard')()
+const AuthAddressBookLazyImport = createFileRoute('/_auth/address-book')()
 
 // Create/Update Routes
 
-const IndexLazyRoute = IndexLazyImport.update({
+const ResetPasswordLazyRoute = ResetPasswordLazyImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/reset-password.lazy').then((d) => d.Route),
+)
+
+const ForgotPasswordLazyRoute = ForgotPasswordLazyImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/forgot-password.lazy').then((d) => d.Route),
+)
+
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const AuthRoute = AuthImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
-
-const WaybillTrackingIndexRoute = WaybillTrackingIndexImport.update({
-  id: '/waybill-tracking/',
-  path: '/waybill-tracking/',
-  getParentRoute: () => rootRoute,
 } as any)
 
-const OrderMgtIndexRoute = OrderMgtIndexImport.update({
-  id: '/order-mgt/',
-  path: '/order-mgt/',
-  getParentRoute: () => rootRoute,
+const AuthOrderMgtLazyRoute = AuthOrderMgtLazyImport.update({
+  id: '/order-mgt',
+  path: '/order-mgt',
+  getParentRoute: () => AuthRoute,
+} as any).lazy(() =>
+  import('./routes/_auth/order-mgt.lazy').then((d) => d.Route),
+)
+
+const AuthFinancialInfoLazyRoute = AuthFinancialInfoLazyImport.update({
+  id: '/financial-info',
+  path: '/financial-info',
+  getParentRoute: () => AuthRoute,
+} as any).lazy(() =>
+  import('./routes/_auth/financial-info.lazy').then((d) => d.Route),
+)
+
+const AuthDataDashboardLazyRoute = AuthDataDashboardLazyImport.update({
+  id: '/data-dashboard',
+  path: '/data-dashboard',
+  getParentRoute: () => AuthRoute,
+} as any).lazy(() =>
+  import('./routes/_auth/data-dashboard.lazy').then((d) => d.Route),
+)
+
+const AuthAddressBookLazyRoute = AuthAddressBookLazyImport.update({
+  id: '/address-book',
+  path: '/address-book',
+  getParentRoute: () => AuthRoute,
+} as any).lazy(() =>
+  import('./routes/_auth/address-book.lazy').then((d) => d.Route),
+)
+
+const AuthWaybillTrackingRoute = AuthWaybillTrackingImport.update({
+  id: '/waybill-tracking',
+  path: '/waybill-tracking',
+  getParentRoute: () => AuthRoute,
 } as any)
-
-const FinancialInfoIndexRoute = FinancialInfoIndexImport.update({
-  id: '/financial-info/',
-  path: '/financial-info/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const DataDashboardIndexRoute = DataDashboardIndexImport.update({
-  id: '/data-dashboard/',
-  path: '/data-dashboard/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AddressBookIndexRoute = AddressBookIndexImport.update({
-  id: '/address-book/',
-  path: '/address-book/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const authResetPasswdLazyRoute = authResetPasswdLazyImport
-  .update({
-    id: '/(auth)/reset-passwd',
-    path: '/reset-passwd',
-    getParentRoute: () => rootRoute,
-  } as any)
-  .lazy(() => import('./routes/(auth)/reset-passwd.lazy').then((d) => d.Route))
-
-const authLoginRoute = authLoginImport
-  .update({
-    id: '/(auth)/login',
-    path: '/login',
-    getParentRoute: () => rootRoute,
-  } as any)
-  .lazy(() => import('./routes/(auth)/login.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -87,151 +108,189 @@ declare module '@tanstack/react-router' {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
+      preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/(auth)/login': {
-      id: '/(auth)/login'
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      id: '/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof authLoginImport
+      preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/(auth)/reset-passwd': {
-      id: '/(auth)/reset-passwd'
-      path: '/reset-passwd'
-      fullPath: '/reset-passwd'
-      preLoaderRoute: typeof authResetPasswdLazyImport
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordLazyImport
       parentRoute: typeof rootRoute
     }
-    '/address-book/': {
-      id: '/address-book/'
-      path: '/address-book'
-      fullPath: '/address-book'
-      preLoaderRoute: typeof AddressBookIndexImport
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordLazyImport
       parentRoute: typeof rootRoute
     }
-    '/data-dashboard/': {
-      id: '/data-dashboard/'
-      path: '/data-dashboard'
-      fullPath: '/data-dashboard'
-      preLoaderRoute: typeof DataDashboardIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/financial-info/': {
-      id: '/financial-info/'
-      path: '/financial-info'
-      fullPath: '/financial-info'
-      preLoaderRoute: typeof FinancialInfoIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/order-mgt/': {
-      id: '/order-mgt/'
-      path: '/order-mgt'
-      fullPath: '/order-mgt'
-      preLoaderRoute: typeof OrderMgtIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/waybill-tracking/': {
-      id: '/waybill-tracking/'
+    '/_auth/waybill-tracking': {
+      id: '/_auth/waybill-tracking'
       path: '/waybill-tracking'
       fullPath: '/waybill-tracking'
-      preLoaderRoute: typeof WaybillTrackingIndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof AuthWaybillTrackingImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/address-book': {
+      id: '/_auth/address-book'
+      path: '/address-book'
+      fullPath: '/address-book'
+      preLoaderRoute: typeof AuthAddressBookLazyImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/data-dashboard': {
+      id: '/_auth/data-dashboard'
+      path: '/data-dashboard'
+      fullPath: '/data-dashboard'
+      preLoaderRoute: typeof AuthDataDashboardLazyImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/financial-info': {
+      id: '/_auth/financial-info'
+      path: '/financial-info'
+      fullPath: '/financial-info'
+      preLoaderRoute: typeof AuthFinancialInfoLazyImport
+      parentRoute: typeof AuthImport
+    }
+    '/_auth/order-mgt': {
+      id: '/_auth/order-mgt'
+      path: '/order-mgt'
+      fullPath: '/order-mgt'
+      preLoaderRoute: typeof AuthOrderMgtLazyImport
+      parentRoute: typeof AuthImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AuthRouteChildren {
+  AuthWaybillTrackingRoute: typeof AuthWaybillTrackingRoute
+  AuthAddressBookLazyRoute: typeof AuthAddressBookLazyRoute
+  AuthDataDashboardLazyRoute: typeof AuthDataDashboardLazyRoute
+  AuthFinancialInfoLazyRoute: typeof AuthFinancialInfoLazyRoute
+  AuthOrderMgtLazyRoute: typeof AuthOrderMgtLazyRoute
+}
+
+const AuthRouteChildren: AuthRouteChildren = {
+  AuthWaybillTrackingRoute: AuthWaybillTrackingRoute,
+  AuthAddressBookLazyRoute: AuthAddressBookLazyRoute,
+  AuthDataDashboardLazyRoute: AuthDataDashboardLazyRoute,
+  AuthFinancialInfoLazyRoute: AuthFinancialInfoLazyRoute,
+  AuthOrderMgtLazyRoute: AuthOrderMgtLazyRoute,
+}
+
+const AuthRouteWithChildren = AuthRoute._addFileChildren(AuthRouteChildren)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
-  '/login': typeof authLoginRoute
-  '/reset-passwd': typeof authResetPasswdLazyRoute
-  '/address-book': typeof AddressBookIndexRoute
-  '/data-dashboard': typeof DataDashboardIndexRoute
-  '/financial-info': typeof FinancialInfoIndexRoute
-  '/order-mgt': typeof OrderMgtIndexRoute
-  '/waybill-tracking': typeof WaybillTrackingIndexRoute
+  '/': typeof IndexRoute
+  '': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/forgot-password': typeof ForgotPasswordLazyRoute
+  '/reset-password': typeof ResetPasswordLazyRoute
+  '/waybill-tracking': typeof AuthWaybillTrackingRoute
+  '/address-book': typeof AuthAddressBookLazyRoute
+  '/data-dashboard': typeof AuthDataDashboardLazyRoute
+  '/financial-info': typeof AuthFinancialInfoLazyRoute
+  '/order-mgt': typeof AuthOrderMgtLazyRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
-  '/login': typeof authLoginRoute
-  '/reset-passwd': typeof authResetPasswdLazyRoute
-  '/address-book': typeof AddressBookIndexRoute
-  '/data-dashboard': typeof DataDashboardIndexRoute
-  '/financial-info': typeof FinancialInfoIndexRoute
-  '/order-mgt': typeof OrderMgtIndexRoute
-  '/waybill-tracking': typeof WaybillTrackingIndexRoute
+  '/': typeof IndexRoute
+  '': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/forgot-password': typeof ForgotPasswordLazyRoute
+  '/reset-password': typeof ResetPasswordLazyRoute
+  '/waybill-tracking': typeof AuthWaybillTrackingRoute
+  '/address-book': typeof AuthAddressBookLazyRoute
+  '/data-dashboard': typeof AuthDataDashboardLazyRoute
+  '/financial-info': typeof AuthFinancialInfoLazyRoute
+  '/order-mgt': typeof AuthOrderMgtLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
-  '/(auth)/login': typeof authLoginRoute
-  '/(auth)/reset-passwd': typeof authResetPasswdLazyRoute
-  '/address-book/': typeof AddressBookIndexRoute
-  '/data-dashboard/': typeof DataDashboardIndexRoute
-  '/financial-info/': typeof FinancialInfoIndexRoute
-  '/order-mgt/': typeof OrderMgtIndexRoute
-  '/waybill-tracking/': typeof WaybillTrackingIndexRoute
+  '/': typeof IndexRoute
+  '/_auth': typeof AuthRouteWithChildren
+  '/login': typeof LoginRoute
+  '/forgot-password': typeof ForgotPasswordLazyRoute
+  '/reset-password': typeof ResetPasswordLazyRoute
+  '/_auth/waybill-tracking': typeof AuthWaybillTrackingRoute
+  '/_auth/address-book': typeof AuthAddressBookLazyRoute
+  '/_auth/data-dashboard': typeof AuthDataDashboardLazyRoute
+  '/_auth/financial-info': typeof AuthFinancialInfoLazyRoute
+  '/_auth/order-mgt': typeof AuthOrderMgtLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | ''
     | '/login'
-    | '/reset-passwd'
+    | '/forgot-password'
+    | '/reset-password'
+    | '/waybill-tracking'
     | '/address-book'
     | '/data-dashboard'
     | '/financial-info'
     | '/order-mgt'
-    | '/waybill-tracking'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | ''
     | '/login'
-    | '/reset-passwd'
+    | '/forgot-password'
+    | '/reset-password'
+    | '/waybill-tracking'
     | '/address-book'
     | '/data-dashboard'
     | '/financial-info'
     | '/order-mgt'
-    | '/waybill-tracking'
   id:
     | '__root__'
     | '/'
-    | '/(auth)/login'
-    | '/(auth)/reset-passwd'
-    | '/address-book/'
-    | '/data-dashboard/'
-    | '/financial-info/'
-    | '/order-mgt/'
-    | '/waybill-tracking/'
+    | '/_auth'
+    | '/login'
+    | '/forgot-password'
+    | '/reset-password'
+    | '/_auth/waybill-tracking'
+    | '/_auth/address-book'
+    | '/_auth/data-dashboard'
+    | '/_auth/financial-info'
+    | '/_auth/order-mgt'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
-  authLoginRoute: typeof authLoginRoute
-  authResetPasswdLazyRoute: typeof authResetPasswdLazyRoute
-  AddressBookIndexRoute: typeof AddressBookIndexRoute
-  DataDashboardIndexRoute: typeof DataDashboardIndexRoute
-  FinancialInfoIndexRoute: typeof FinancialInfoIndexRoute
-  OrderMgtIndexRoute: typeof OrderMgtIndexRoute
-  WaybillTrackingIndexRoute: typeof WaybillTrackingIndexRoute
+  IndexRoute: typeof IndexRoute
+  AuthRoute: typeof AuthRouteWithChildren
+  LoginRoute: typeof LoginRoute
+  ForgotPasswordLazyRoute: typeof ForgotPasswordLazyRoute
+  ResetPasswordLazyRoute: typeof ResetPasswordLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
-  authLoginRoute: authLoginRoute,
-  authResetPasswdLazyRoute: authResetPasswdLazyRoute,
-  AddressBookIndexRoute: AddressBookIndexRoute,
-  DataDashboardIndexRoute: DataDashboardIndexRoute,
-  FinancialInfoIndexRoute: FinancialInfoIndexRoute,
-  OrderMgtIndexRoute: OrderMgtIndexRoute,
-  WaybillTrackingIndexRoute: WaybillTrackingIndexRoute,
+  IndexRoute: IndexRoute,
+  AuthRoute: AuthRouteWithChildren,
+  LoginRoute: LoginRoute,
+  ForgotPasswordLazyRoute: ForgotPasswordLazyRoute,
+  ResetPasswordLazyRoute: ResetPasswordLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -245,38 +304,53 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/(auth)/login",
-        "/(auth)/reset-passwd",
-        "/address-book/",
-        "/data-dashboard/",
-        "/financial-info/",
-        "/order-mgt/",
-        "/waybill-tracking/"
+        "/_auth",
+        "/login",
+        "/forgot-password",
+        "/reset-password"
       ]
     },
     "/": {
-      "filePath": "index.lazy.tsx"
+      "filePath": "index.tsx"
     },
-    "/(auth)/login": {
-      "filePath": "(auth)/login.tsx"
+    "/_auth": {
+      "filePath": "_auth.tsx",
+      "children": [
+        "/_auth/waybill-tracking",
+        "/_auth/address-book",
+        "/_auth/data-dashboard",
+        "/_auth/financial-info",
+        "/_auth/order-mgt"
+      ]
     },
-    "/(auth)/reset-passwd": {
-      "filePath": "(auth)/reset-passwd.lazy.tsx"
+    "/login": {
+      "filePath": "login.tsx"
     },
-    "/address-book/": {
-      "filePath": "address-book/index.tsx"
+    "/forgot-password": {
+      "filePath": "forgot-password.lazy.tsx"
     },
-    "/data-dashboard/": {
-      "filePath": "data-dashboard/index.tsx"
+    "/reset-password": {
+      "filePath": "reset-password.lazy.tsx"
     },
-    "/financial-info/": {
-      "filePath": "financial-info/index.tsx"
+    "/_auth/waybill-tracking": {
+      "filePath": "_auth/waybill-tracking.tsx",
+      "parent": "/_auth"
     },
-    "/order-mgt/": {
-      "filePath": "order-mgt/index.tsx"
+    "/_auth/address-book": {
+      "filePath": "_auth/address-book.lazy.tsx",
+      "parent": "/_auth"
     },
-    "/waybill-tracking/": {
-      "filePath": "waybill-tracking/index.tsx"
+    "/_auth/data-dashboard": {
+      "filePath": "_auth/data-dashboard.lazy.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/financial-info": {
+      "filePath": "_auth/financial-info.lazy.tsx",
+      "parent": "/_auth"
+    },
+    "/_auth/order-mgt": {
+      "filePath": "_auth/order-mgt.lazy.tsx",
+      "parent": "/_auth"
     }
   }
 }
