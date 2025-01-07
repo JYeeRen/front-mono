@@ -1,10 +1,7 @@
-// import { useQuery } from "@app/hooks";
-// import { useStore } from 'zustand'
 import { authService } from '@app/services';
-// import { useEffect } from 'react';
 import { useLoginStore } from './login.store';
 import { Button, Checkbox, Form, Input, Row } from 'antd';
-import { Link } from '@tanstack/react-router';
+import { Link, useSearch } from '@tanstack/react-router';
 import Icon, {
   LockOutlined,
   QuestionCircleOutlined,
@@ -16,17 +13,11 @@ import { LoginForm } from './login.type';
 import styles from './login.module.less';
 
 export default function Login() {
-  // const auth = useStore(authService);
+
+  const search = useSearch({ from: '/(auth)/login' });
+  console.log(search);
+
   const store = useLoginStore();
-  // console.log(auth);
-
-  // useEffect(() => {
-  //   authService.login('ZP001', 'ZP001');
-  // }, []);
-  // const data = useQuery('/api/option/getBase');
-  // console.log(data);
-
-  // console.log(data.addressType);
 
   const [form] = Form.useForm<LoginForm>();
 
@@ -45,10 +36,10 @@ export default function Login() {
     <>
       <div className={styles.content}>
         <img src={logo} alt="logo" className={styles.logo} />
-        <p className={styles.slogan}>
+        <div className={styles.slogan}>
           <p style={{ marginBottom: 0 }}>Order Managerment System</p>
           Welcome!
-        </p>
+        </div>
         <Form
           className={styles.form}
           form={form}
@@ -67,6 +58,7 @@ export default function Login() {
               placeholder="UserName"
               prefix={<UserOutlined />}
               disabled={store.loading}
+              autoComplete='username'
             />
           </Form.Item>
           <Form.Item
@@ -78,6 +70,7 @@ export default function Login() {
               placeholder="Password"
               prefix={<LockOutlined />}
               disabled={store.loading}
+              autoComplete='password'
             />
           </Form.Item>
           <Row justify="space-between" align="middle">

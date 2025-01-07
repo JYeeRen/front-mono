@@ -18,12 +18,12 @@ import { Route as OrderMgtIndexImport } from './routes/order-mgt/index'
 import { Route as FinancialInfoIndexImport } from './routes/financial-info/index'
 import { Route as DataDashboardIndexImport } from './routes/data-dashboard/index'
 import { Route as AddressBookIndexImport } from './routes/address-book/index'
+import { Route as authLoginImport } from './routes/(auth)/login'
 
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
-const AuthResetPasswdLazyImport = createFileRoute('/auth/reset-passwd')()
-const AuthLoginLazyImport = createFileRoute('/auth/login')()
+const authResetPasswdLazyImport = createFileRoute('/(auth)/reset-passwd')()
 
 // Create/Update Routes
 
@@ -63,19 +63,21 @@ const AddressBookIndexRoute = AddressBookIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const AuthResetPasswdLazyRoute = AuthResetPasswdLazyImport.update({
-  id: '/auth/reset-passwd',
-  path: '/auth/reset-passwd',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/auth/reset-passwd.lazy').then((d) => d.Route),
-)
+const authResetPasswdLazyRoute = authResetPasswdLazyImport
+  .update({
+    id: '/(auth)/reset-passwd',
+    path: '/reset-passwd',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./routes/(auth)/reset-passwd.lazy').then((d) => d.Route))
 
-const AuthLoginLazyRoute = AuthLoginLazyImport.update({
-  id: '/auth/login',
-  path: '/auth/login',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/auth/login.lazy').then((d) => d.Route))
+const authLoginRoute = authLoginImport
+  .update({
+    id: '/(auth)/login',
+    path: '/login',
+    getParentRoute: () => rootRoute,
+  } as any)
+  .lazy(() => import('./routes/(auth)/login.lazy').then((d) => d.Route))
 
 // Populate the FileRoutesByPath interface
 
@@ -88,18 +90,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/auth/login': {
-      id: '/auth/login'
-      path: '/auth/login'
-      fullPath: '/auth/login'
-      preLoaderRoute: typeof AuthLoginLazyImport
+    '/(auth)/login': {
+      id: '/(auth)/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof authLoginImport
       parentRoute: typeof rootRoute
     }
-    '/auth/reset-passwd': {
-      id: '/auth/reset-passwd'
-      path: '/auth/reset-passwd'
-      fullPath: '/auth/reset-passwd'
-      preLoaderRoute: typeof AuthResetPasswdLazyImport
+    '/(auth)/reset-passwd': {
+      id: '/(auth)/reset-passwd'
+      path: '/reset-passwd'
+      fullPath: '/reset-passwd'
+      preLoaderRoute: typeof authResetPasswdLazyImport
       parentRoute: typeof rootRoute
     }
     '/address-book/': {
@@ -144,8 +146,8 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/auth/login': typeof AuthLoginLazyRoute
-  '/auth/reset-passwd': typeof AuthResetPasswdLazyRoute
+  '/login': typeof authLoginRoute
+  '/reset-passwd': typeof authResetPasswdLazyRoute
   '/address-book': typeof AddressBookIndexRoute
   '/data-dashboard': typeof DataDashboardIndexRoute
   '/financial-info': typeof FinancialInfoIndexRoute
@@ -155,8 +157,8 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/auth/login': typeof AuthLoginLazyRoute
-  '/auth/reset-passwd': typeof AuthResetPasswdLazyRoute
+  '/login': typeof authLoginRoute
+  '/reset-passwd': typeof authResetPasswdLazyRoute
   '/address-book': typeof AddressBookIndexRoute
   '/data-dashboard': typeof DataDashboardIndexRoute
   '/financial-info': typeof FinancialInfoIndexRoute
@@ -167,8 +169,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
-  '/auth/login': typeof AuthLoginLazyRoute
-  '/auth/reset-passwd': typeof AuthResetPasswdLazyRoute
+  '/(auth)/login': typeof authLoginRoute
+  '/(auth)/reset-passwd': typeof authResetPasswdLazyRoute
   '/address-book/': typeof AddressBookIndexRoute
   '/data-dashboard/': typeof DataDashboardIndexRoute
   '/financial-info/': typeof FinancialInfoIndexRoute
@@ -180,8 +182,8 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/auth/login'
-    | '/auth/reset-passwd'
+    | '/login'
+    | '/reset-passwd'
     | '/address-book'
     | '/data-dashboard'
     | '/financial-info'
@@ -190,8 +192,8 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/auth/login'
-    | '/auth/reset-passwd'
+    | '/login'
+    | '/reset-passwd'
     | '/address-book'
     | '/data-dashboard'
     | '/financial-info'
@@ -200,8 +202,8 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
-    | '/auth/login'
-    | '/auth/reset-passwd'
+    | '/(auth)/login'
+    | '/(auth)/reset-passwd'
     | '/address-book/'
     | '/data-dashboard/'
     | '/financial-info/'
@@ -212,8 +214,8 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  AuthLoginLazyRoute: typeof AuthLoginLazyRoute
-  AuthResetPasswdLazyRoute: typeof AuthResetPasswdLazyRoute
+  authLoginRoute: typeof authLoginRoute
+  authResetPasswdLazyRoute: typeof authResetPasswdLazyRoute
   AddressBookIndexRoute: typeof AddressBookIndexRoute
   DataDashboardIndexRoute: typeof DataDashboardIndexRoute
   FinancialInfoIndexRoute: typeof FinancialInfoIndexRoute
@@ -223,8 +225,8 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  AuthLoginLazyRoute: AuthLoginLazyRoute,
-  AuthResetPasswdLazyRoute: AuthResetPasswdLazyRoute,
+  authLoginRoute: authLoginRoute,
+  authResetPasswdLazyRoute: authResetPasswdLazyRoute,
   AddressBookIndexRoute: AddressBookIndexRoute,
   DataDashboardIndexRoute: DataDashboardIndexRoute,
   FinancialInfoIndexRoute: FinancialInfoIndexRoute,
@@ -243,8 +245,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/auth/login",
-        "/auth/reset-passwd",
+        "/(auth)/login",
+        "/(auth)/reset-passwd",
         "/address-book/",
         "/data-dashboard/",
         "/financial-info/",
@@ -255,11 +257,11 @@ export const routeTree = rootRoute
     "/": {
       "filePath": "index.lazy.tsx"
     },
-    "/auth/login": {
-      "filePath": "auth/login.lazy.tsx"
+    "/(auth)/login": {
+      "filePath": "(auth)/login.tsx"
     },
-    "/auth/reset-passwd": {
-      "filePath": "auth/reset-passwd.lazy.tsx"
+    "/(auth)/reset-passwd": {
+      "filePath": "(auth)/reset-passwd.lazy.tsx"
     },
     "/address-book/": {
       "filePath": "address-book/index.tsx"

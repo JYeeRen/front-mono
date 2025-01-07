@@ -1,13 +1,4 @@
 import { logger, net, storage } from '@app/infra';
-  // import { createStore } from 'zustand/vanilla';
-// import { persist, createJSONStorage } from 'zustand/middleware';
-
-// interface _Auth {
-//   account: string;
-//   user: Schema.User | null;
-//   login: (account: string, password: string) => Promise<void>;
-//   logout: () => Promise<void>;
-// }
 
 class AuthService {
   user: Schema.User | null;
@@ -45,31 +36,3 @@ class AuthService {
 }
 
 export const authService = new AuthService();
-
-// export const authService = createStore(
-//   persist<_Auth>(
-//     (set) => ({
-//       user: null,
-//       account: '',
-//       login: async (account, password) => {
-//         const user = await net.post('/api/account/login', {
-//           account,
-//           password,
-//         });
-//         set({ account, user });
-//       },
-//       logout: async () => {
-//         await net.post('/api/account/logout');
-//         set({ account: '', user: null });
-//       },
-//     }),
-//     {
-//       name: 'auth',
-//       storage: createJSONStorage(() => ({
-//         getItem: (name) => storage.store.get(name),
-//         setItem: (name, value) => storage.store.set(name, value),
-//         removeItem: (name) => storage.store.remove(name),
-//       })),
-//     },
-//   ),
-// );
