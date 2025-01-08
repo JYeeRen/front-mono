@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
+import { Route as CaseTableImport } from './routes/case.table'
 import { Route as CaseMapImport } from './routes/case.map'
 import { Route as AuthWaybillTrackingImport } from './routes/_auth/waybill-tracking'
 
@@ -95,6 +96,12 @@ const AuthAddressBookLazyRoute = AuthAddressBookLazyImport.update({
   import('./routes/_auth/address-book.lazy').then((d) => d.Route),
 )
 
+const CaseTableRoute = CaseTableImport.update({
+  id: '/case/table',
+  path: '/case/table',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const CaseMapRoute = CaseMapImport.update({
   id: '/case/map',
   path: '/case/map',
@@ -160,6 +167,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaseMapImport
       parentRoute: typeof rootRoute
     }
+    '/case/table': {
+      id: '/case/table'
+      path: '/case/table'
+      fullPath: '/case/table'
+      preLoaderRoute: typeof CaseTableImport
+      parentRoute: typeof rootRoute
+    }
     '/_auth/address-book': {
       id: '/_auth/address-book'
       path: '/address-book'
@@ -219,6 +233,7 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordLazyRoute
   '/waybill-tracking': typeof AuthWaybillTrackingRoute
   '/case/map': typeof CaseMapRoute
+  '/case/table': typeof CaseTableRoute
   '/address-book': typeof AuthAddressBookLazyRoute
   '/data-dashboard': typeof AuthDataDashboardLazyRoute
   '/financial-info': typeof AuthFinancialInfoLazyRoute
@@ -233,6 +248,7 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordLazyRoute
   '/waybill-tracking': typeof AuthWaybillTrackingRoute
   '/case/map': typeof CaseMapRoute
+  '/case/table': typeof CaseTableRoute
   '/address-book': typeof AuthAddressBookLazyRoute
   '/data-dashboard': typeof AuthDataDashboardLazyRoute
   '/financial-info': typeof AuthFinancialInfoLazyRoute
@@ -248,6 +264,7 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordLazyRoute
   '/_auth/waybill-tracking': typeof AuthWaybillTrackingRoute
   '/case/map': typeof CaseMapRoute
+  '/case/table': typeof CaseTableRoute
   '/_auth/address-book': typeof AuthAddressBookLazyRoute
   '/_auth/data-dashboard': typeof AuthDataDashboardLazyRoute
   '/_auth/financial-info': typeof AuthFinancialInfoLazyRoute
@@ -264,6 +281,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/waybill-tracking'
     | '/case/map'
+    | '/case/table'
     | '/address-book'
     | '/data-dashboard'
     | '/financial-info'
@@ -277,6 +295,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/waybill-tracking'
     | '/case/map'
+    | '/case/table'
     | '/address-book'
     | '/data-dashboard'
     | '/financial-info'
@@ -290,6 +309,7 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_auth/waybill-tracking'
     | '/case/map'
+    | '/case/table'
     | '/_auth/address-book'
     | '/_auth/data-dashboard'
     | '/_auth/financial-info'
@@ -304,6 +324,7 @@ export interface RootRouteChildren {
   ForgotPasswordLazyRoute: typeof ForgotPasswordLazyRoute
   ResetPasswordLazyRoute: typeof ResetPasswordLazyRoute
   CaseMapRoute: typeof CaseMapRoute
+  CaseTableRoute: typeof CaseTableRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -313,6 +334,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordLazyRoute: ForgotPasswordLazyRoute,
   ResetPasswordLazyRoute: ResetPasswordLazyRoute,
   CaseMapRoute: CaseMapRoute,
+  CaseTableRoute: CaseTableRoute,
 }
 
 export const routeTree = rootRoute
@@ -330,7 +352,8 @@ export const routeTree = rootRoute
         "/login",
         "/forgot-password",
         "/reset-password",
-        "/case/map"
+        "/case/map",
+        "/case/table"
       ]
     },
     "/": {
@@ -361,6 +384,9 @@ export const routeTree = rootRoute
     },
     "/case/map": {
       "filePath": "case.map.tsx"
+    },
+    "/case/table": {
+      "filePath": "case.table.tsx"
     },
     "/_auth/address-book": {
       "filePath": "_auth/address-book.lazy.tsx",

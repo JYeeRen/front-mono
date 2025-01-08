@@ -27,7 +27,8 @@ export default defineConfig({
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
           'antd-vendor': ['antd', '@ant-design/icons'],
-          'googlemap-vendor': ['@googlemaps/js-api-loader']
+          'googlemap-vendor': ['@googlemaps/js-api-loader'],
+          'ag-grid-vendor': ['ag-grid-react', 'ag-grid-community'],
         }
       }
     }
