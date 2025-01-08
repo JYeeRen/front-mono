@@ -16,6 +16,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as AuthImport } from './routes/_auth'
 import { Route as IndexImport } from './routes/index'
+import { Route as CaseMapImport } from './routes/case.map'
 import { Route as AuthWaybillTrackingImport } from './routes/_auth/waybill-tracking'
 
 // Create Virtual Routes
@@ -94,6 +95,12 @@ const AuthAddressBookLazyRoute = AuthAddressBookLazyImport.update({
   import('./routes/_auth/address-book.lazy').then((d) => d.Route),
 )
 
+const CaseMapRoute = CaseMapImport.update({
+  id: '/case/map',
+  path: '/case/map',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const AuthWaybillTrackingRoute = AuthWaybillTrackingImport.update({
   id: '/waybill-tracking',
   path: '/waybill-tracking',
@@ -145,6 +152,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/waybill-tracking'
       preLoaderRoute: typeof AuthWaybillTrackingImport
       parentRoute: typeof AuthImport
+    }
+    '/case/map': {
+      id: '/case/map'
+      path: '/case/map'
+      fullPath: '/case/map'
+      preLoaderRoute: typeof CaseMapImport
+      parentRoute: typeof rootRoute
     }
     '/_auth/address-book': {
       id: '/_auth/address-book'
@@ -204,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordLazyRoute
   '/reset-password': typeof ResetPasswordLazyRoute
   '/waybill-tracking': typeof AuthWaybillTrackingRoute
+  '/case/map': typeof CaseMapRoute
   '/address-book': typeof AuthAddressBookLazyRoute
   '/data-dashboard': typeof AuthDataDashboardLazyRoute
   '/financial-info': typeof AuthFinancialInfoLazyRoute
@@ -217,6 +232,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordLazyRoute
   '/reset-password': typeof ResetPasswordLazyRoute
   '/waybill-tracking': typeof AuthWaybillTrackingRoute
+  '/case/map': typeof CaseMapRoute
   '/address-book': typeof AuthAddressBookLazyRoute
   '/data-dashboard': typeof AuthDataDashboardLazyRoute
   '/financial-info': typeof AuthFinancialInfoLazyRoute
@@ -231,6 +247,7 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordLazyRoute
   '/reset-password': typeof ResetPasswordLazyRoute
   '/_auth/waybill-tracking': typeof AuthWaybillTrackingRoute
+  '/case/map': typeof CaseMapRoute
   '/_auth/address-book': typeof AuthAddressBookLazyRoute
   '/_auth/data-dashboard': typeof AuthDataDashboardLazyRoute
   '/_auth/financial-info': typeof AuthFinancialInfoLazyRoute
@@ -246,6 +263,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/reset-password'
     | '/waybill-tracking'
+    | '/case/map'
     | '/address-book'
     | '/data-dashboard'
     | '/financial-info'
@@ -258,6 +276,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/reset-password'
     | '/waybill-tracking'
+    | '/case/map'
     | '/address-book'
     | '/data-dashboard'
     | '/financial-info'
@@ -270,6 +289,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/reset-password'
     | '/_auth/waybill-tracking'
+    | '/case/map'
     | '/_auth/address-book'
     | '/_auth/data-dashboard'
     | '/_auth/financial-info'
@@ -283,6 +303,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   ForgotPasswordLazyRoute: typeof ForgotPasswordLazyRoute
   ResetPasswordLazyRoute: typeof ResetPasswordLazyRoute
+  CaseMapRoute: typeof CaseMapRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -291,6 +312,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   ForgotPasswordLazyRoute: ForgotPasswordLazyRoute,
   ResetPasswordLazyRoute: ResetPasswordLazyRoute,
+  CaseMapRoute: CaseMapRoute,
 }
 
 export const routeTree = rootRoute
@@ -307,7 +329,8 @@ export const routeTree = rootRoute
         "/_auth",
         "/login",
         "/forgot-password",
-        "/reset-password"
+        "/reset-password",
+        "/case/map"
       ]
     },
     "/": {
@@ -335,6 +358,9 @@ export const routeTree = rootRoute
     "/_auth/waybill-tracking": {
       "filePath": "_auth/waybill-tracking.tsx",
       "parent": "/_auth"
+    },
+    "/case/map": {
+      "filePath": "case.map.tsx"
     },
     "/_auth/address-book": {
       "filePath": "_auth/address-book.lazy.tsx",

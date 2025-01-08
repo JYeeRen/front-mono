@@ -3,7 +3,7 @@
   import { djs, logger, storage, BACKEND_HOST } from '@app/infra';
 
   import type { Axios, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-  import { Api, ApiRes, ApiSuccess, OptionalParams, URLs } from './types';
+  import { ApiRes, ApiSuccess, OptionalParams, Res, URLs } from './types';
 
   class Net {
     private readonly client: Axios;
@@ -18,7 +18,7 @@
       this.client = this.getAxiosInstance();
     }
 
-    async post<URL extends URLs, R = Api[URL]['res']>(
+    async post<URL extends URLs, R = Res<URL>>(
       url: URL,
       ...[body, config]: OptionalParams<URL>
     ): Promise<R> {
@@ -34,7 +34,7 @@
       return data.data;
     }
 
-    async upload<URL extends URLs, R = Api[URL]['res']>(
+    async upload<URL extends URLs, R = Res<URL>>(
       url: URL,
       ...[body, config]: OptionalParams<URL>
     ): Promise<R> {
@@ -53,7 +53,7 @@
       return data.data;
     }
 
-    async download<URL extends URLs, R = Api[URL]['res']>(
+    async download<URL extends URLs, R = Res<URL>>(
       url: URL,
       ...[body, config]: OptionalParams<URL>
     ): Promise<void> {

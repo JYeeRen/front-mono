@@ -21,4 +21,15 @@ export default defineConfig({
       "@features": path.resolve(__dirname, "./src/features"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
+          'antd-vendor': ['antd', '@ant-design/icons'],
+          'googlemap-vendor': ['@googlemaps/js-api-loader']
+        }
+      }
+    }
+  }
 });
