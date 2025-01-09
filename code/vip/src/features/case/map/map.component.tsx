@@ -1,7 +1,8 @@
-import { Loader } from '@googlemaps/js-api-loader';
 // import m94103 from './94103.json';
 import { useEffect, useRef } from 'react';
 import { Modal } from 'antd';
+import * as Gmap from './gmap';
+
 
 // async function findBoundary(postCode: string) {
 //   const request = {
@@ -38,81 +39,63 @@ import { Modal } from 'antd';
 // }
 
 async function renderMap(mapRef: React.RefObject<HTMLDivElement>) {
-  const loader = new Loader({
-    apiKey: '',
-    version: 'weekly', // 或指定其他版本
-  });
-
-  const google = await loader.importLibrary('maps');
   if (!mapRef.current) {
     return;
   }
+  const map = await Gmap.renderMap(mapRef);
+  await Gmap.postcodeFeature.load(map);
+  await Gmap.selection.load(map);
+  return;
+  // const { DrawingManager, OverlayType } = await loader.importLibrary('drawing');
+  // const drawingManager = new DrawingManager({
+  //   drawingMode: OverlayType.RECTANGLE,
+  //   drawingControl: true,
+  //   drawingControlOptions: {
+  //     position: google.maps.ControlPosition.TOP_CENTER,
+  //     drawingModes: [
+  //       OverlayType.MARKER,
+  //       OverlayType.CIRCLE,
+  //       OverlayType.POLYGON,
+  //       OverlayType.POLYLINE,
+  //       OverlayType.RECTANGLE,
+  //     ],
+  //   },
+  //   markerOptions: {
+  //     icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png",
+  //   },
+  //   circleOptions: {
+  //     fillColor: "#ffff00",
+  //     fillOpacity: 1,
+  //     strokeWeight: 5,
+  //     clickable: false,
+  //     editable: true,
+  //     zIndex: 1,
+  //   },
+  // });
 
-  // const center = { lat: 20.773, lng: -156.01 };
-  const center = { lat: 37.419, lng: -122.02 };
-  // 创建地图实例
-  const map = new google.Map(mapRef.current, {
-    center,
-    zoom: 12,
-    mapId: '6968edad074122cb',
-  });
+  // drawingManager.setMap(map);
 
-  const { AdvancedMarkerElement, PinElement } =
-    await loader.importLibrary('marker');
+  // google.maps.event.addListener(drawingManager, 'rectanglecomplete', (rectangle) => {
+  //   const bounds = rectangle.getBounds();
+  //   if (bounds) {
+  //     console.log('North-East:', bounds.getNorthEast().toString());
+  //     console.log('South-West:', bounds.getSouthWest().toString());
+  //   }
 
-  const pinTextGlyph = new PinElement({
-    glyph: '74',
-    glyphColor: 'white',
-    background: '#FBBC04',
-    borderColor: '#137333',
-    scale: 1,
-  });
+  //   rectangle.setMap(null);
+  // });
 
-  const pinTextGlyph2 = new PinElement({
-    glyph: '93',
-    glyphColor: 'white',
-    background: '#FBBC04',
-    borderColor: '#137333',
-    scale: 1,
-  });
-
-  const markerViewGlyphText = new AdvancedMarkerElement({
-    map,
-    position: { lat: 37.419, lng: -122.03 },
-    content: pinTextGlyph.element,
-  });
-
-  new AdvancedMarkerElement({
-    map,
-    position: { lat: 37.409, lng: -122.04 },
-    content: pinTextGlyph2.element,
-  });
-
-  console.log(markerViewGlyphText);
   // const marker = new AdvancedMarkerElement({
   //   map,
   //   position: { lat: 37.419, lng: -122.02 },
   //   content: pin.element,
   // });
-  // const featureLayer = map.getFeatureLayer(google.FeatureType.LOCALITY);
 
-  // const featureStyleOptions: google.maps.FeatureStyleOptions = {
-  //   strokeColor: '#810FCB',
-  //   strokeOpacity: 1.0,
-  //   strokeWeight: 3.0,
-  //   fillColor: '#810FCB',
-  //   fillOpacity: 0.5
-  // };
 
-  // const styleFn: google.maps.FeatureStyleFunction = options => {
-  //   if (options.feature.placeId == 'ChIJ0zQtYiWsVHkRk8lRoB1RNPo') { // Hana, HI
-  //     return featureStyleOptions;
-  //   }
-  // };
-  // featureLayer.style = styleFn;
 
-  // const place = await findBoundary('94103');
-  // console.log(place);
+
+// Apply styles using a feature style function.
+
 
   return map;
 }
