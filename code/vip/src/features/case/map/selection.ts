@@ -3,16 +3,21 @@ import { Loader } from '@googlemaps/js-api-loader';
 export class Selection {
   loader: Loader;
 
-  drawing?: google.maps.DrawingLibrary;
-  geocoding?: google.maps.GeocodingLibrary;
+  map!: google.maps.Map;
+
+  drawing!: google.maps.DrawingLibrary;
+  geocoding!: google.maps.GeocodingLibrary;
+  places!: google.maps.PlacesLibrary
 
   constructor(loader: Loader) {
     this.loader = loader;
   }
 
   async load(map: google.maps.Map) {
+    this.map = map;
     this.drawing = await this.loader.importLibrary('drawing');
     this.geocoding = await this.loader.importLibrary('geocoding');
+    this.places = await this.loader.importLibrary('places');
 
     const { DrawingManager, OverlayType } = this.drawing;
 
@@ -47,12 +52,34 @@ export class Selection {
     // 不保留矩形选取
     rectangle.setMap(null);
 
-    const geocoder = new this.geocoding!.Geocoder();
+    // const placeService =  new this.places!.PlacesService(this.map);
 
-    const res = await geocoder.geocode({
-      bounds,
-      componentRestrictions: { country: 'US' },
-    });
-    console.log(res);
+    // placeService.nearbySearch({
+    //   bounds: bounds as google.maps.LatLngBounds,
+    //   type: ''
+    // }, (res) => console.log(res));
+    // const request: google.maps.places.SearchNearbyRequest = {
+    //   fields: ["name", "geometry"],
+    //   region: "us",
+    //   locationRestriction: new Circle
+    // };
+
+    const request: google.maps.places.SearchByTextRequest = {
+      includedType: 'postal_code',
+      textQuery: '*',
+      locationBias: bounds as google.maps.LatLngBounds,
+      region: "us",
+      fields: ["displayName", "location", "businessStatus"]
+    };
+
+    const places = await this.places.Place.searchByText(request);
+    console.log(places);
+    // const geocoder = new this.geocoding!.Geocoder();
+
+    // const res = await geocoder.geocode({
+    //   bounds,
+    //   componentRestrictions: { country: 'US' },
+    // });
+    // console.log(res);
   }
 }

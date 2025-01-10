@@ -1,4 +1,5 @@
 import { Loader } from '@googlemaps/js-api-loader';
+import placeStore from './place.store';
 
 export class PostcodeFeature {
   loader: Loader;
@@ -20,14 +21,19 @@ export class PostcodeFeature {
     this.featureLayer.addListener('click', this.handleClick.bind(this));
   }
 
+  addListener(handler: (event: google.maps.FeatureMouseEvent) => void) {
+    this.featureLayer?.addListener('click', handler);
+  }
+
   handleClick(event: google.maps.FeatureMouseEvent) {
     event.features.map((f) => {
       const { placeId } = f as unknown as { placeId: string };
-      if (this.selectedFeatureIdSet.has(placeId)) {
-        this.selectedFeatureIdSet.delete(placeId);
-      } else {
-        this.selectedFeatureIdSet.add(placeId);
-      }
+      placeStore.getState().setPlaceColor(placeId);
+      // if (this.selectedFeatureIdSet.has(placeId)) {
+      //   this.selectedFeatureIdSet.delete(placeId);
+      // } else {
+      //   this.selectedFeatureIdSet.add(placeId);
+      // }
     });
 
     this.applyStyle();
@@ -39,9 +45,9 @@ export class PostcodeFeature {
 
   featureStyleFn(options: google.maps.FeatureStyleFunctionOptions) {
     const { placeId } = options.feature as unknown as { placeId: string };
-
-    if (this.selectedFeatureIdSet.has(placeId)) {
-      return this.styleClicked;
+    const placeColor = placeStore.getState().placeColor;
+    if (placeColor.has(placeId)) {
+      return { ...this.styleClicked, fillColor: placeColor.get(placeId) };
     }
     // if (this.lastInteractedFeatureIds.includes(placeId)) {
     //   return this.styleMouseMove;
