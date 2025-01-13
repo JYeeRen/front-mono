@@ -25,6 +25,7 @@ const vanillaStore = createStore<State & Action>((set, get) => ({
       return;
     }
     newPlaceColor.set(placeId, activeColor);
+    console.log(newPlaceColor);
     set({ placeColor: newPlaceColor });
   }
 }));
