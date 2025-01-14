@@ -31,7 +31,7 @@ export class PostcodeFeature {
     clickObservable.subscribe(event => {
       console.log('FeatureLayer was clicked:', event);
       // 可以在这里定义处理点击事件的逻辑，例如调用某个处理函数
-      // this.handleClick(event);
+      this.handleClick(event);
     });
   }
 

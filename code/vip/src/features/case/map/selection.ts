@@ -1,5 +1,6 @@
 import { Loader } from '@googlemaps/js-api-loader';
 import placeStore from './place.store';
+import axios from 'axios';
 
 export class Selection {
   loader: Loader;
@@ -145,12 +146,21 @@ export class Selection {
 
   async rectanglecomplete(rectangle: google.maps.Rectangle) {
     const bounds = rectangle.getBounds()!;
-    if (bounds) {
-      console.log('North-East:', bounds.getNorthEast().toString());
+      
+    console.log('North-East:', bounds.getNorthEast().toString());
       console.log('South-West:', bounds.getSouthWest().toString());
-    }
+
+
+    const minLatitude = Math.min(bounds.getSouthWest().lat(), bounds.getNorthEast().lat());
+    const maxLatitude = Math.max(bounds.getSouthWest().lat(), bounds.getNorthEast().lat());
+    const minLongitude = Math.min(bounds.getSouthWest().lng(), bounds.getNorthEast().lng());
+    const maxLongitude = Math.max(bounds.getSouthWest().lng(), bounds.getNorthEast().lng());
     // 不保留矩形选取
     rectangle.setMap(null);
+    const res = await axios.get(`http://hostlocal.host:22380/zipCode?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`);
+    console.log(res);
+    
+    return;
 
     const center = bounds.getCenter();
     const radius = this.calculateDistance(bounds.getSouthWest(), bounds.getNorthEast()) / 2;
