@@ -150,13 +150,16 @@ export class Selection {
     console.log('North-East:', bounds.getNorthEast().toString());
       console.log('South-West:', bounds.getSouthWest().toString());
 
-
+    
     const minLatitude = Math.min(bounds.getSouthWest().lat(), bounds.getNorthEast().lat());
     const maxLatitude = Math.max(bounds.getSouthWest().lat(), bounds.getNorthEast().lat());
     const minLongitude = Math.min(bounds.getSouthWest().lng(), bounds.getNorthEast().lng());
     const maxLongitude = Math.max(bounds.getSouthWest().lng(), bounds.getNorthEast().lng());
+
+    console.log(minLatitude, maxLatitude, minLongitude, maxLongitude);
     // 不保留矩形选取
     rectangle.setMap(null);
+    return;
     const res = await axios.get(`http://hostlocal.host:22380/zipCode?minLatitude=${minLatitude}&maxLatitude=${maxLatitude}&minLongitude=${minLongitude}&maxLongitude=${maxLongitude}`);
     console.log(res);
     

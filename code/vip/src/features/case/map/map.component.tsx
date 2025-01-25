@@ -13,8 +13,8 @@ async function renderMap(mapRef: React.RefObject<HTMLDivElement>) {
     return;
   }
   const map = await Gmap.renderMap(mapRef);
-  // await Gmap.postcodeFeature.load(map);
-  // await Gmap.selection.load(map);
+  await Gmap.postcodeFeature.load(map);
+  await Gmap.selection.load(map);
 
   // Gmap.postcodeFeature.addListener((event) => {
   //   event.features.map((f) => {
