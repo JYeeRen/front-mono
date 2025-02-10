@@ -5,7 +5,8 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import enUS from 'antd/locale/en_US';
 
 import { routeTree } from './routeTree.gen';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, App as AntdApp } from 'antd';
+import { app } from './services';
 
 const router = createRouter({ routeTree });
 
@@ -21,10 +22,13 @@ function App() {
   return (
     <>
       <ConfigProvider locale={enUS}>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-          <ReactQueryDevtools />
-        </QueryClientProvider>
+        <AntdApp message={{ maxCount: 1 }}>
+          <app.Registry />
+          <QueryClientProvider client={queryClient}>
+            <RouterProvider router={router} />
+            <ReactQueryDevtools />
+          </QueryClientProvider>
+        </AntdApp>
       </ConfigProvider>
     </>
   );
