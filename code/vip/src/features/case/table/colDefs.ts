@@ -1,5 +1,5 @@
 import { ValueFormatterParams } from "ag-grid-community";
-import { CompanyLogoRenderer, customFilter, dateFormatter, MissionResultRenderer } from "./custom";
+import { Cfilter, CompanyLogoRenderer, dateFormatter, MissionResultRenderer } from "./custom";
 import CustomPinnedRowRenderer from "./customPinnedRowRenderer";
 import { Thin_ColDef } from "./table.types";
 
@@ -11,7 +11,7 @@ export const columns: Thin_ColDef[] = [
     {
       field: 'company',
       width: 130,
-      filter: customFilter,
+      filter: Cfilter,
       cellRenderer: CompanyLogoRenderer,
       pinned: 'left',
       cellRendererSelector: (params) => {

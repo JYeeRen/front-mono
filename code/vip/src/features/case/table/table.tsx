@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   AllCommunityModule,
   GridOptions,
@@ -11,18 +10,14 @@ import { useMemo } from 'react';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
-interface TableProps<TData = any>
+interface TableProps<TData = unknown>
   extends Omit<GridOptions<TData>, 'columnDefs' | 'defaultColDef'> {
   columnDefs: (Thin_ColDef<TData> | Thin_ColGroupDef<TData>)[] | null;
   defaultColDef?: Thin_ColDef<TData>;
 }
 
 export function TableImpl<TData>(props: TableProps<TData>) {
-
-  const {
-    pagination = true,
-    ...restProps
-  } = props;
+  const { pagination = true, ...restProps } = props;
 
   const selectionColumnDef: SelectionColumnDef = useMemo(() => {
     return {
@@ -35,7 +30,15 @@ export function TableImpl<TData>(props: TableProps<TData>) {
   }, []);
 
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <div
+      style={{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        resize: 'both',
+        overflow: 'hidden',
+      }}
+    >
       <AgGridReact
         selectionColumnDef={selectionColumnDef}
         {...restProps}
@@ -46,6 +49,7 @@ export function TableImpl<TData>(props: TableProps<TData>) {
         paginationPageSize={1000}
         paginationPageSizeSelector={[100, 200, 500, 1000]}
         onFilterChanged={(event) => console.log('Filter Changed!', event)}
+        onFilterOpened={(event) => console.log(event)}
         // selectionColumnDef={selectionColumnDef}
         // rowSelection={rowSelection}
         // suppressRowHoverHighlight={suppressRowHoverHighlight}
