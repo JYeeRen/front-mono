@@ -1,3 +1,7 @@
-declare module 'table-ag-grid' {
-  
+import { ExternalO } from 'infra';
+
+declare module 'infra' {
+  interface ExternalO {
+    e: 1;
+  }
 }

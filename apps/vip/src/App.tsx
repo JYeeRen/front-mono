@@ -3,9 +3,13 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { TableImpl } from 'table-ag-grid'
+import { post } from 'infra';
+
 
 function App() {
   const [count, setCount] = useState(0)
+
+  post({ a: 1, b: 1, c: 1, e: 1 })
 
   // Row Data: The data to be displayed.
   const [rowData, setRowData] = useState([
