@@ -1,10 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { createRoot } from 'react-dom/client';
+import { default as CAPP } from './App.tsx';
+import { App, net, store } from '@gkd/app';
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
-)
+(async function main() {
+  net.init({ baseURL: '//localhost:7766' });
+  store.init(import.meta.env.VITE_APP_NAME ?? 'test-app');
+
+  createRoot(document.getElementById('root')!).render(
+    <App>
+      <CAPP />
+    </App>,
+  );
+})();

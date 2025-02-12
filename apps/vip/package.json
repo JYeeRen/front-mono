@@ -10,14 +10,16 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "typescript": "~5.7.2"
   },
   "dependencies": {
-    "infra": "workspace:^1.0.0",
+    "@gkd/api": "workspace:^",
+    "@gkd/app": "workspace:^",
+    "@gkd/components": "workspace:^",
     "table": "workspace:*",
     "table-ag-grid": "workspace:^"
   },

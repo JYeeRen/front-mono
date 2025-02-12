@@ -1,16 +1,11 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
 import { TableImpl } from 'table-ag-grid'
-import { post } from 'infra';
 
-
-function App() {
+function AppA() {
   const [count, setCount] = useState(0)
-
-  post({ a: 1, b: 1, c: 1, e: 1 })
-
+  
   // Row Data: The data to be displayed.
   const [rowData, setRowData] = useState([
     { make: "Tesla", model: "Model Y", price: 64950, electric: true },
@@ -59,4 +54,4 @@ function App() {
   )
 }
 
-export default App
+export default AppA

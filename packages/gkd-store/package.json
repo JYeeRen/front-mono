@@ -1,0 +1,19 @@
+{
+  "name": "@gkd/store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  },
+  "dependencies": { 
+    "store2": "^2.14.4"
+  }
+}
