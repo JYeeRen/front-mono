@@ -19,6 +19,9 @@ declare module '@tanstack/react-router' {
 const queryClient = new QueryClient();
 
 function App() {
+
+  console.log(router);
+
   return (
     <>
       <ConfigProvider locale={enUS}>

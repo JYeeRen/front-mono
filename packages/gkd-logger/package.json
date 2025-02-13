@@ -1,0 +1,20 @@
+{
+  "name": "@gkd/logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "tsconfig": "workspace:^"
+  },
+  "dependencies": {
+    "debug": "^4.4.0"
+  }
+}

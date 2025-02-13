@@ -6,6 +6,8 @@ import { App, net, store } from '@gkd/app';
   net.init({ baseURL: '//localhost:7766' });
   store.init(import.meta.env.VITE_APP_NAME ?? 'test-app');
 
+  App.bootstrap();
+
   createRoot(document.getElementById('root')!).render(
     <App>
       <CAPP />

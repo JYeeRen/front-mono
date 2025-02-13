@@ -1,14 +1,11 @@
 import debug from 'debug';
-import { APP_NAME } from '@app/infra';
-
 
 class Logger {
 
   debug: debug.Debugger;
 
-  constructor() {
-    localStorage.debug = `${APP_NAME}:*`;
-    this.debug = debug(APP_NAME ?? '');
+  constructor(ns?: string) {
+    this.debug = debug(ns ?? 'app');
   }
 
   get auth() {
@@ -27,8 +24,9 @@ class Logger {
     return this.debug.extend('store');
   }
 
-  init() {
-    localStorage.debug = `${APP_NAME}:*`;
+  init(appName: string) {
+    this.debug = debug(appName);
+    localStorage.debug = `${appName}:*`;
   }
 
 }
