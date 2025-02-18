@@ -36,9 +36,6 @@ importers:
 
   apps/vip:
     dependencies:
-      '@gkd/api':
-        specifier: workspace:^
-        version: link:../../packages/gkd-api
       '@gkd/app':
         specifier: workspace:^
         version: link:../../packages/gkd-app

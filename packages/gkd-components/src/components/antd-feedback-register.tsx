@@ -7,7 +7,7 @@ let message: MessageInstance;
 let notification: NotificationInstance;
 let modal: Omit<ModalStaticFunctions, 'warn'>;
 
-function Register() {
+function FeedbackRegister() {
   const staticFunction = App.useApp();
 
   message = staticFunction.message;
@@ -18,7 +18,7 @@ function Register() {
 }
 
 export {
-  Register,
+  FeedbackRegister,
   message,
   notification,
   modal

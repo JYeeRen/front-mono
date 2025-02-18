@@ -2,7 +2,7 @@ import { App as InternalApp } from './app';
 
 import { bootstrap } from './bootstrap';
 
-export * as Feedback from './antd-feedback-register';
+export { message, notification, modal } from '@gkd/components';
 
 export * from '@gkd/api';
 

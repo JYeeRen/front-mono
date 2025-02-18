@@ -1,35 +1,57 @@
+import { net } from '@gkd/app';
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
+import { useEffect } from 'react';
 
 export function RootComponent() {
+  useEffect(() => {
+    net.post({
+      url: '/api/account/login',
+      data: { account: 'admin', password: 'admin123' },
+    });
+  }, []);
+
   return (
     <>
       <div className="p-2 flex gap-2">
         <Link preload={false} to="/" className="[&.active]:font-bold">
           Home
-        </Link>{' | '}
-        <Link preload={false} to="/address_book" className="[&.active]:font-bold">
+        </Link>
+        {' | '}
+        <Link
+          preload={false}
+          to="/address_book"
+          className="[&.active]:font-bold"
+        >
           AddressBook
-        </Link>{' | '}
+        </Link>
+        {' | '}
         <Link preload={false} to="/dashboard" className="[&.active]:font-bold">
           Dashboard
-        </Link>{' | '}
+        </Link>
+        {' | '}
         <Link preload={false} to="/financial" className="[&.active]:font-bold">
           Financial
-        </Link>{' | '}
+        </Link>
+        {' | '}
         <Link preload={false} to="/order_mgt" className="[&.active]:font-bold">
           OrderMGT
-        </Link>{' | '}
-        <Link preload={false} to="/waybill_tracking" className="[&.active]:font-bold">
+        </Link>
+        {' | '}
+        <Link
+          preload={false}
+          to="/waybill_tracking"
+          className="[&.active]:font-bold"
+        >
           Waybill Tracking
-        </Link>{' | '}
+        </Link>
+        {' | '}
       </div>
       <hr />
       <Outlet />
       <TanStackRouterDevtools />
     </>
   );
-
 }
 
 export const Route = createRootRoute({
