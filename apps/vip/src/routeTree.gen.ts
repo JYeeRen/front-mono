@@ -11,16 +11,46 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as WaybilltrackingImport } from './routes/waybill_tracking'
+import { Route as OrdermgtImport } from './routes/order_mgt'
+import { Route as FinancialImport } from './routes/financial'
+import { Route as DashboardImport } from './routes/dashboard'
+import { Route as AddressbookImport } from './routes/address_book'
 import { Route as IndexImport } from './routes/index'
-import { Route as WaybilltrackingIndexImport } from './routes/waybill_tracking/index'
-import { Route as OrdermgtIndexImport } from './routes/order_mgt/index'
-import { Route as FinancialIndexImport } from './routes/financial/index'
-import { Route as DashboardIndexImport } from './routes/dashboard/index'
-import { Route as AddressbookIndexImport } from './routes/address_book/index'
-import { Route as OrdermgtOrderlistImport } from './routes/order_mgt/order_list'
-import { Route as OrdermgtOrdercreateImport } from './routes/order_mgt/order_create'
+import { Route as OrdermgtOrderlistImport } from './routes/order_mgt.order_list'
+import { Route as OrdermgtOrdercreateImport } from './routes/order_mgt.order_create'
 
 // Create/Update Routes
+
+const WaybilltrackingRoute = WaybilltrackingImport.update({
+  id: '/waybill_tracking',
+  path: '/waybill_tracking',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const OrdermgtRoute = OrdermgtImport.update({
+  id: '/order_mgt',
+  path: '/order_mgt',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FinancialRoute = FinancialImport.update({
+  id: '/financial',
+  path: '/financial',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardRoute = DashboardImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AddressbookRoute = AddressbookImport.update({
+  id: '/address_book',
+  path: '/address_book',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -28,46 +58,16 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const WaybilltrackingIndexRoute = WaybilltrackingIndexImport.update({
-  id: '/waybill_tracking/',
-  path: '/waybill_tracking/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const OrdermgtIndexRoute = OrdermgtIndexImport.update({
-  id: '/order_mgt/',
-  path: '/order_mgt/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const FinancialIndexRoute = FinancialIndexImport.update({
-  id: '/financial/',
-  path: '/financial/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const DashboardIndexRoute = DashboardIndexImport.update({
-  id: '/dashboard/',
-  path: '/dashboard/',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const AddressbookIndexRoute = AddressbookIndexImport.update({
-  id: '/address_book/',
-  path: '/address_book/',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const OrdermgtOrderlistRoute = OrdermgtOrderlistImport.update({
-  id: '/order_mgt/order_list',
-  path: '/order_mgt/order_list',
-  getParentRoute: () => rootRoute,
+  id: '/order_list',
+  path: '/order_list',
+  getParentRoute: () => OrdermgtRoute,
 } as any)
 
 const OrdermgtOrdercreateRoute = OrdermgtOrdercreateImport.update({
-  id: '/order_mgt/order_create',
-  path: '/order_mgt/order_create',
-  getParentRoute: () => rootRoute,
+  id: '/order_create',
+  path: '/order_create',
+  getParentRoute: () => OrdermgtRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -81,148 +81,158 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/address_book': {
+      id: '/address_book'
+      path: '/address_book'
+      fullPath: '/address_book'
+      preLoaderRoute: typeof AddressbookImport
+      parentRoute: typeof rootRoute
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/financial': {
+      id: '/financial'
+      path: '/financial'
+      fullPath: '/financial'
+      preLoaderRoute: typeof FinancialImport
+      parentRoute: typeof rootRoute
+    }
+    '/order_mgt': {
+      id: '/order_mgt'
+      path: '/order_mgt'
+      fullPath: '/order_mgt'
+      preLoaderRoute: typeof OrdermgtImport
+      parentRoute: typeof rootRoute
+    }
+    '/waybill_tracking': {
+      id: '/waybill_tracking'
+      path: '/waybill_tracking'
+      fullPath: '/waybill_tracking'
+      preLoaderRoute: typeof WaybilltrackingImport
+      parentRoute: typeof rootRoute
+    }
     '/order_mgt/order_create': {
       id: '/order_mgt/order_create'
-      path: '/order_mgt/order_create'
+      path: '/order_create'
       fullPath: '/order_mgt/order_create'
       preLoaderRoute: typeof OrdermgtOrdercreateImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof OrdermgtImport
     }
     '/order_mgt/order_list': {
       id: '/order_mgt/order_list'
-      path: '/order_mgt/order_list'
+      path: '/order_list'
       fullPath: '/order_mgt/order_list'
       preLoaderRoute: typeof OrdermgtOrderlistImport
-      parentRoute: typeof rootRoute
-    }
-    '/address_book/': {
-      id: '/address_book/'
-      path: '/address_book'
-      fullPath: '/address_book'
-      preLoaderRoute: typeof AddressbookIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/dashboard/': {
-      id: '/dashboard/'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/financial/': {
-      id: '/financial/'
-      path: '/financial'
-      fullPath: '/financial'
-      preLoaderRoute: typeof FinancialIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/order_mgt/': {
-      id: '/order_mgt/'
-      path: '/order_mgt'
-      fullPath: '/order_mgt'
-      preLoaderRoute: typeof OrdermgtIndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/waybill_tracking/': {
-      id: '/waybill_tracking/'
-      path: '/waybill_tracking'
-      fullPath: '/waybill_tracking'
-      preLoaderRoute: typeof WaybilltrackingIndexImport
-      parentRoute: typeof rootRoute
+      parentRoute: typeof OrdermgtImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface OrdermgtRouteChildren {
+  OrdermgtOrdercreateRoute: typeof OrdermgtOrdercreateRoute
+  OrdermgtOrderlistRoute: typeof OrdermgtOrderlistRoute
+}
+
+const OrdermgtRouteChildren: OrdermgtRouteChildren = {
+  OrdermgtOrdercreateRoute: OrdermgtOrdercreateRoute,
+  OrdermgtOrderlistRoute: OrdermgtOrderlistRoute,
+}
+
+const OrdermgtRouteWithChildren = OrdermgtRoute._addFileChildren(
+  OrdermgtRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/address_book': typeof AddressbookRoute
+  '/dashboard': typeof DashboardRoute
+  '/financial': typeof FinancialRoute
+  '/order_mgt': typeof OrdermgtRouteWithChildren
+  '/waybill_tracking': typeof WaybilltrackingRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
-  '/address_book': typeof AddressbookIndexRoute
-  '/dashboard': typeof DashboardIndexRoute
-  '/financial': typeof FinancialIndexRoute
-  '/order_mgt': typeof OrdermgtIndexRoute
-  '/waybill_tracking': typeof WaybilltrackingIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/address_book': typeof AddressbookRoute
+  '/dashboard': typeof DashboardRoute
+  '/financial': typeof FinancialRoute
+  '/order_mgt': typeof OrdermgtRouteWithChildren
+  '/waybill_tracking': typeof WaybilltrackingRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
-  '/address_book': typeof AddressbookIndexRoute
-  '/dashboard': typeof DashboardIndexRoute
-  '/financial': typeof FinancialIndexRoute
-  '/order_mgt': typeof OrdermgtIndexRoute
-  '/waybill_tracking': typeof WaybilltrackingIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/address_book': typeof AddressbookRoute
+  '/dashboard': typeof DashboardRoute
+  '/financial': typeof FinancialRoute
+  '/order_mgt': typeof OrdermgtRouteWithChildren
+  '/waybill_tracking': typeof WaybilltrackingRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
-  '/address_book/': typeof AddressbookIndexRoute
-  '/dashboard/': typeof DashboardIndexRoute
-  '/financial/': typeof FinancialIndexRoute
-  '/order_mgt/': typeof OrdermgtIndexRoute
-  '/waybill_tracking/': typeof WaybilltrackingIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/order_mgt/order_create'
-    | '/order_mgt/order_list'
     | '/address_book'
     | '/dashboard'
     | '/financial'
     | '/order_mgt'
     | '/waybill_tracking'
+    | '/order_mgt/order_create'
+    | '/order_mgt/order_list'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/order_mgt/order_create'
-    | '/order_mgt/order_list'
     | '/address_book'
     | '/dashboard'
     | '/financial'
     | '/order_mgt'
     | '/waybill_tracking'
+    | '/order_mgt/order_create'
+    | '/order_mgt/order_list'
   id:
     | '__root__'
     | '/'
+    | '/address_book'
+    | '/dashboard'
+    | '/financial'
+    | '/order_mgt'
+    | '/waybill_tracking'
     | '/order_mgt/order_create'
     | '/order_mgt/order_list'
-    | '/address_book/'
-    | '/dashboard/'
-    | '/financial/'
-    | '/order_mgt/'
-    | '/waybill_tracking/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  OrdermgtOrdercreateRoute: typeof OrdermgtOrdercreateRoute
-  OrdermgtOrderlistRoute: typeof OrdermgtOrderlistRoute
-  AddressbookIndexRoute: typeof AddressbookIndexRoute
-  DashboardIndexRoute: typeof DashboardIndexRoute
-  FinancialIndexRoute: typeof FinancialIndexRoute
-  OrdermgtIndexRoute: typeof OrdermgtIndexRoute
-  WaybilltrackingIndexRoute: typeof WaybilltrackingIndexRoute
+  AddressbookRoute: typeof AddressbookRoute
+  DashboardRoute: typeof DashboardRoute
+  FinancialRoute: typeof FinancialRoute
+  OrdermgtRoute: typeof OrdermgtRouteWithChildren
+  WaybilltrackingRoute: typeof WaybilltrackingRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  OrdermgtOrdercreateRoute: OrdermgtOrdercreateRoute,
-  OrdermgtOrderlistRoute: OrdermgtOrderlistRoute,
-  AddressbookIndexRoute: AddressbookIndexRoute,
-  DashboardIndexRoute: DashboardIndexRoute,
-  FinancialIndexRoute: FinancialIndexRoute,
-  OrdermgtIndexRoute: OrdermgtIndexRoute,
-  WaybilltrackingIndexRoute: WaybilltrackingIndexRoute,
+  AddressbookRoute: AddressbookRoute,
+  DashboardRoute: DashboardRoute,
+  FinancialRoute: FinancialRoute,
+  OrdermgtRoute: OrdermgtRouteWithChildren,
+  WaybilltrackingRoute: WaybilltrackingRoute,
 }
 
 export const routeTree = rootRoute
@@ -236,38 +246,42 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/order_mgt/order_create",
-        "/order_mgt/order_list",
-        "/address_book/",
-        "/dashboard/",
-        "/financial/",
-        "/order_mgt/",
-        "/waybill_tracking/"
+        "/address_book",
+        "/dashboard",
+        "/financial",
+        "/order_mgt",
+        "/waybill_tracking"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
+    "/address_book": {
+      "filePath": "address_book.tsx"
+    },
+    "/dashboard": {
+      "filePath": "dashboard.tsx"
+    },
+    "/financial": {
+      "filePath": "financial.tsx"
+    },
+    "/order_mgt": {
+      "filePath": "order_mgt.tsx",
+      "children": [
+        "/order_mgt/order_create",
+        "/order_mgt/order_list"
+      ]
+    },
+    "/waybill_tracking": {
+      "filePath": "waybill_tracking.tsx"
+    },
     "/order_mgt/order_create": {
-      "filePath": "order_mgt/order_create.tsx"
+      "filePath": "order_mgt.order_create.tsx",
+      "parent": "/order_mgt"
     },
     "/order_mgt/order_list": {
-      "filePath": "order_mgt/order_list.tsx"
-    },
-    "/address_book/": {
-      "filePath": "address_book/index.tsx"
-    },
-    "/dashboard/": {
-      "filePath": "dashboard/index.tsx"
-    },
-    "/financial/": {
-      "filePath": "financial/index.tsx"
-    },
-    "/order_mgt/": {
-      "filePath": "order_mgt/index.tsx"
-    },
-    "/waybill_tracking/": {
-      "filePath": "waybill_tracking/index.tsx"
+      "filePath": "order_mgt.order_list.tsx",
+      "parent": "/order_mgt"
     }
   }
 }

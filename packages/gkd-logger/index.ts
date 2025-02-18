@@ -12,6 +12,10 @@ class Logger {
     return this.debug.extend('auth');
   }
 
+  get boot() {
+    return this.infra.extend('boot');
+  }
+
   get infra() {
     return this.debug.extend('infra');
   }

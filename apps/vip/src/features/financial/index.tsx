@@ -1,6 +1,6 @@
 import { createLazyRoute } from '@tanstack/react-router';
 
-export const Route = createLazyRoute('/financial/')({
+export const Route = createLazyRoute('/financial')({
   component: FinancialComponent,
 });
 

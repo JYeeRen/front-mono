@@ -1,6 +1,6 @@
 import { createLazyRoute } from '@tanstack/react-router';
 
-export const Route = createLazyRoute('/address_book/')({
+export const Route = createLazyRoute('/address_book')({
   component: AddressBookComponent,
 });
 

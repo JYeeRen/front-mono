@@ -1,16 +1,19 @@
 import { createRoot } from 'react-dom/client';
-import { default as CAPP } from './App.tsx';
-import { App, net, store } from '@gkd/app';
+import { App } from '@gkd/app';
+import { RouterProvider } from './router';
+import trans from './i18n/common.json';
 
 (async function main() {
-  net.init({ baseURL: '//localhost:7766' });
-  store.init(import.meta.env.VITE_APP_NAME ?? 'test-app');
-
-  App.bootstrap();
+  App.bootstrap({
+    appName: import.meta.env.VITE_APP_NAME,
+    baseUrl: import.meta.env.VITE_BACKEND_HOST,
+    lng: 'zh-CN',
+    sources: trans
+  });
 
   createRoot(document.getElementById('root')!).render(
     <App>
-      <CAPP />
+      <RouterProvider />
     </App>,
   );
 })();

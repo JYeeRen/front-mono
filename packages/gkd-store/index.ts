@@ -1,7 +1,8 @@
 import store2, { StoreType } from 'store2';
 
 export interface StoreValues {
-
+  token: string;
+  lang: "en" | "zh-CN";
 }
 
 class Store {

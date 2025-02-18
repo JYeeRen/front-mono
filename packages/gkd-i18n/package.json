@@ -1,0 +1,20 @@
+{
+  "name": "@gkd/i18n",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  },
+  "dependencies": {
+    "i18next": "^24.2.2",
+    "react-i18next": "^15.4.1"
+  }
+}

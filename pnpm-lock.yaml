@@ -116,12 +116,21 @@ importers:
         specifier: ^1.7.9
         version: 1.7.9
     devDependencies:
+      '@gkd/djs':
+        specifier: workspace:^
+        version: link:../gkd-djs
+      '@gkd/store':
+        specifier: workspace:^
+        version: link:../gkd-store
       '@tanstack/react-query-devtools':
         specifier: ^5.66.0
         version: 5.66.0(@tanstack/react-query@5.66.0)(react@18.3.1)
       tsconfig:
         specifier: workspace:^
         version: link:../tsconfig
+      uuid:
+        specifier: ^11.0.5
+        version: 11.0.5
 
   packages/gkd-app:
     dependencies:
@@ -134,6 +143,9 @@ importers:
       '@gkd/djs':
         specifier: workspace:^
         version: link:../gkd-djs
+      '@gkd/i18n':
+        specifier: workspace:^
+        version: link:../gkd-i18n
       '@gkd/logger':
         specifier: workspace:^
         version: link:../gkd-logger
@@ -178,6 +190,19 @@ importers:
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
+      tsconfig:
+        specifier: workspace:^
+        version: link:../tsconfig
+
+  packages/gkd-i18n:
+    dependencies:
+      i18next:
+        specifier: ^24.2.2
+        version: 24.2.2(typescript@5.7.3)
+      react-i18next:
+        specifier: ^15.4.1
+        version: 15.4.1(i18next@24.2.2)(react-dom@18.3.1)(react@18.3.1)
+    devDependencies:
       tsconfig:
         specifier: workspace:^
         version: link:../tsconfig
@@ -2535,6 +2560,24 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /html-parse-stringify@3.0.1:
+    resolution: {integrity: sha512-KknJ50kTInJ7qIScF3jeaFRpMpE8/lfiTdzf/twXyPBLAGrLRTmkz3AdTnKeh40X8k9L2fdYwEp/42WGXIRGcg==}
+    dependencies:
+      void-elements: 3.1.0
+    dev: false
+
+  /i18next@24.2.2(typescript@5.7.3):
+    resolution: {integrity: sha512-NE6i86lBCKRYZa5TaUDkU5S4HFgLIEJRLr3Whf2psgaxBleQ2LC1YW1Vc+SCgkAW7VEzndT6al6+CzegSUHcTQ==}
+    peerDependencies:
+      typescript: ^5
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.26.7
+      typescript: 5.7.3
+    dev: false
+
   /ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
@@ -3336,6 +3379,26 @@ packages:
       react: 18.3.1
       scheduler: 0.23.2
 
+  /react-i18next@15.4.1(i18next@24.2.2)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-ahGab+IaSgZmNPYXdV1n+OYky95TGpFwnKRflX/16dY04DsYYKHtVLjeny7sBSCREEcoMbAgSkFiGLF5g5Oofw==}
+    peerDependencies:
+      i18next: '>= 23.2.3'
+      react: '>= 16.8.0'
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.26.7
+      html-parse-stringify: 3.0.1
+      i18next: 24.2.2(typescript@5.7.3)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+    dev: false
+
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
@@ -3648,6 +3711,11 @@ packages:
     dependencies:
       react: 18.3.1
 
+  /uuid@11.0.5:
+    resolution: {integrity: sha512-508e6IcKLrhxKdBbcA2b4KQZlLVp2+J5UwQ6F7Drckkc5N9ZJwFa4TgWtsww9UG8fGHbm6gbV19TdM5pQ4GaIA==}
+    hasBin: true
+    dev: true
+
   /vite@6.1.0(@types/node@22.13.1):
     resolution: {integrity: sha512-RjjMipCKVoR4hVfPY6GQTgveinjNuyLw+qruksLDvA5ktI1150VmcMBKmQaEWJhg/j6Uaf6dNCNA0AfdzUb/hQ==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -3695,6 +3763,11 @@ packages:
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
+
+  /void-elements@3.1.0:
+    resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}

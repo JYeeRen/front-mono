@@ -1,6 +1,6 @@
 import { createLazyRoute } from '@tanstack/react-router';
 
-export const Route = createLazyRoute('/dashboard/')({
+export const Route = createLazyRoute('/dashboard')({
   component: DashboardComponent,
 });
 

@@ -10,6 +10,7 @@ export * from '@gkd/store';
 
 export * from '@gkd/djs';
 
+export * from '@gkd/i18n';
 
 type InternalAppType = typeof InternalApp;
 

@@ -1,6 +1,6 @@
 import { createLazyRoute, Outlet } from '@tanstack/react-router';
 
-export const Route = createLazyRoute('/order_mgt/')({
+export const Route = createLazyRoute('/order_mgt')({
   component: OrderMGTComponent,
 });
 

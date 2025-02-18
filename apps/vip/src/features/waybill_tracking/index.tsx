@@ -1,6 +1,6 @@
 import { createLazyRoute } from '@tanstack/react-router';
 
-export const Route = createLazyRoute('/waybill_tracking/')({
+export const Route = createLazyRoute('/waybill_tracking')({
   component: WaybillTrackingComponent,
 });
 

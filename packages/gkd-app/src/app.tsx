@@ -2,7 +2,10 @@ import React, { PropsWithChildren } from 'react';
 import { AntdWrapper } from './wrapper/antd-wrapper';
 import { UseQueryWrapper } from '@gkd/api';
 
-export function App({ children }: PropsWithChildren) {
+interface AppProps extends PropsWithChildren {
+}
+
+export function App({ children }: AppProps) {
   return (
     <>
       <UseQueryWrapper>

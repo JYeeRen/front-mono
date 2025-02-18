@@ -31,15 +31,16 @@ export type Res<URL extends URLs> = Api[URL] extends { res: infer R }
     ? R | undefined
     : undefined;
 
-// interface ApiSuccess<T = unknown> {
-//   code: 0;
-//   data: T;
-// }
+interface ApiSuccess<T = unknown> {
+  code: 0;
+  data: T;
+  msg?: string;
+}
 
-// interface ApiError<T = unknown> {
-//   code: number;
-//   data: T;
-//   msg?: string;
-// }
+interface ApiError<T = unknown> {
+  code: number;
+  data: T;
+  msg?: string;
+}
 
-// type ApiRes<T = unknown, E = unknown> = ApiSuccess<T> | ApiError<E>;
+export type ApiRes<T = unknown, E = unknown> = ApiSuccess<T> | ApiError<E>;
