@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as WaybilltrackingImport } from './routes/waybill_tracking'
+import { Route as QuestionnaireImport } from './routes/questionnaire'
 import { Route as OrdermgtImport } from './routes/order_mgt'
 import { Route as FinancialImport } from './routes/financial'
 import { Route as DashboardImport } from './routes/dashboard'
@@ -25,6 +26,12 @@ import { Route as OrdermgtOrdercreateImport } from './routes/order_mgt.order_cre
 const WaybilltrackingRoute = WaybilltrackingImport.update({
   id: '/waybill_tracking',
   path: '/waybill_tracking',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const QuestionnaireRoute = QuestionnaireImport.update({
+  id: '/questionnaire',
+  path: '/questionnaire',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -109,6 +116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrdermgtImport
       parentRoute: typeof rootRoute
     }
+    '/questionnaire': {
+      id: '/questionnaire'
+      path: '/questionnaire'
+      fullPath: '/questionnaire'
+      preLoaderRoute: typeof QuestionnaireImport
+      parentRoute: typeof rootRoute
+    }
     '/waybill_tracking': {
       id: '/waybill_tracking'
       path: '/waybill_tracking'
@@ -155,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/financial': typeof FinancialRoute
   '/order_mgt': typeof OrdermgtRouteWithChildren
+  '/questionnaire': typeof QuestionnaireRoute
   '/waybill_tracking': typeof WaybilltrackingRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
@@ -166,6 +181,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/financial': typeof FinancialRoute
   '/order_mgt': typeof OrdermgtRouteWithChildren
+  '/questionnaire': typeof QuestionnaireRoute
   '/waybill_tracking': typeof WaybilltrackingRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
@@ -178,6 +194,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/financial': typeof FinancialRoute
   '/order_mgt': typeof OrdermgtRouteWithChildren
+  '/questionnaire': typeof QuestionnaireRoute
   '/waybill_tracking': typeof WaybilltrackingRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
@@ -191,6 +208,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/financial'
     | '/order_mgt'
+    | '/questionnaire'
     | '/waybill_tracking'
     | '/order_mgt/order_create'
     | '/order_mgt/order_list'
@@ -201,6 +219,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/financial'
     | '/order_mgt'
+    | '/questionnaire'
     | '/waybill_tracking'
     | '/order_mgt/order_create'
     | '/order_mgt/order_list'
@@ -211,6 +230,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/financial'
     | '/order_mgt'
+    | '/questionnaire'
     | '/waybill_tracking'
     | '/order_mgt/order_create'
     | '/order_mgt/order_list'
@@ -223,6 +243,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   FinancialRoute: typeof FinancialRoute
   OrdermgtRoute: typeof OrdermgtRouteWithChildren
+  QuestionnaireRoute: typeof QuestionnaireRoute
   WaybilltrackingRoute: typeof WaybilltrackingRoute
 }
 
@@ -232,6 +253,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   FinancialRoute: FinancialRoute,
   OrdermgtRoute: OrdermgtRouteWithChildren,
+  QuestionnaireRoute: QuestionnaireRoute,
   WaybilltrackingRoute: WaybilltrackingRoute,
 }
 
@@ -250,6 +272,7 @@ export const routeTree = rootRoute
         "/dashboard",
         "/financial",
         "/order_mgt",
+        "/questionnaire",
         "/waybill_tracking"
       ]
     },
@@ -271,6 +294,9 @@ export const routeTree = rootRoute
         "/order_mgt/order_create",
         "/order_mgt/order_list"
       ]
+    },
+    "/questionnaire": {
+      "filePath": "questionnaire.tsx"
     },
     "/waybill_tracking": {
       "filePath": "waybill_tracking.tsx"

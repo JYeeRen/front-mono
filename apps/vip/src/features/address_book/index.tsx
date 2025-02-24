@@ -1,4 +1,5 @@
 import { createLazyRoute } from '@tanstack/react-router';
+import styles from './address_book.module.less';
 
 export const Route = createLazyRoute('/address_book')({
   component: AddressBookComponent,
@@ -7,7 +8,7 @@ export const Route = createLazyRoute('/address_book')({
 export function AddressBookComponent() {
   return (
     <>
-      <h1>Address Book</h1>
+      <h1 className={styles.header}>Address Book</h1>
     </>
   );
 }

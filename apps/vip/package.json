@@ -17,6 +17,7 @@
     "typescript": "~5.7.2"
   },
   "dependencies": {
+    "@feture/769-art": "workspace:^1.0.0",
     "@gkd/app": "workspace:^",
     "@gkd/components": "workspace:^",
     "@tanstack/react-router": "^1.102.5",

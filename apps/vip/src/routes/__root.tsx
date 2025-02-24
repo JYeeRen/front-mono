@@ -1,15 +1,15 @@
-import { net } from '@gkd/app';
+// import { net } from '@gkd/app';
 import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { useEffect } from 'react';
+// import { useEffect } from 'react';
 
 export function RootComponent() {
-  useEffect(() => {
-    net.post({
-      url: '/api/account/login',
-      data: { account: 'admin', password: 'admin123' },
-    });
-  }, []);
+  // useEffect(() => {
+  //   net.post({
+  //     url: '/api/account/login',
+  //     data: { account: 'admin', password: 'admin123' },
+  //   });
+  // }, []);
 
   return (
     <>
