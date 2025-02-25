@@ -12,7 +12,6 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as WaybilltrackingImport } from './routes/waybill_tracking'
-import { Route as QuestionnaireImport } from './routes/questionnaire'
 import { Route as OrdermgtImport } from './routes/order_mgt'
 import { Route as FinancialImport } from './routes/financial'
 import { Route as DashboardImport } from './routes/dashboard'
@@ -20,18 +19,15 @@ import { Route as AddressbookImport } from './routes/address_book'
 import { Route as IndexImport } from './routes/index'
 import { Route as OrdermgtOrderlistImport } from './routes/order_mgt.order_list'
 import { Route as OrdermgtOrdercreateImport } from './routes/order_mgt.order_create'
+import { Route as R769VideoImport } from './routes/769.video'
+import { Route as R769QuestionnaireImport } from './routes/769.questionnaire'
+import { Route as R769CoursewareImport } from './routes/769.courseware'
 
 // Create/Update Routes
 
 const WaybilltrackingRoute = WaybilltrackingImport.update({
   id: '/waybill_tracking',
   path: '/waybill_tracking',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const QuestionnaireRoute = QuestionnaireImport.update({
-  id: '/questionnaire',
-  path: '/questionnaire',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -77,6 +73,24 @@ const OrdermgtOrdercreateRoute = OrdermgtOrdercreateImport.update({
   getParentRoute: () => OrdermgtRoute,
 } as any)
 
+const R769VideoRoute = R769VideoImport.update({
+  id: '/769/video',
+  path: '/769/video',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const R769QuestionnaireRoute = R769QuestionnaireImport.update({
+  id: '/769/questionnaire',
+  path: '/769/questionnaire',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const R769CoursewareRoute = R769CoursewareImport.update({
+  id: '/769/courseware',
+  path: '/769/courseware',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -116,18 +130,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrdermgtImport
       parentRoute: typeof rootRoute
     }
-    '/questionnaire': {
-      id: '/questionnaire'
-      path: '/questionnaire'
-      fullPath: '/questionnaire'
-      preLoaderRoute: typeof QuestionnaireImport
-      parentRoute: typeof rootRoute
-    }
     '/waybill_tracking': {
       id: '/waybill_tracking'
       path: '/waybill_tracking'
       fullPath: '/waybill_tracking'
       preLoaderRoute: typeof WaybilltrackingImport
+      parentRoute: typeof rootRoute
+    }
+    '/769/courseware': {
+      id: '/769/courseware'
+      path: '/769/courseware'
+      fullPath: '/769/courseware'
+      preLoaderRoute: typeof R769CoursewareImport
+      parentRoute: typeof rootRoute
+    }
+    '/769/questionnaire': {
+      id: '/769/questionnaire'
+      path: '/769/questionnaire'
+      fullPath: '/769/questionnaire'
+      preLoaderRoute: typeof R769QuestionnaireImport
+      parentRoute: typeof rootRoute
+    }
+    '/769/video': {
+      id: '/769/video'
+      path: '/769/video'
+      fullPath: '/769/video'
+      preLoaderRoute: typeof R769VideoImport
       parentRoute: typeof rootRoute
     }
     '/order_mgt/order_create': {
@@ -169,8 +197,10 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/financial': typeof FinancialRoute
   '/order_mgt': typeof OrdermgtRouteWithChildren
-  '/questionnaire': typeof QuestionnaireRoute
   '/waybill_tracking': typeof WaybilltrackingRoute
+  '/769/courseware': typeof R769CoursewareRoute
+  '/769/questionnaire': typeof R769QuestionnaireRoute
+  '/769/video': typeof R769VideoRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
 }
@@ -181,8 +211,10 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/financial': typeof FinancialRoute
   '/order_mgt': typeof OrdermgtRouteWithChildren
-  '/questionnaire': typeof QuestionnaireRoute
   '/waybill_tracking': typeof WaybilltrackingRoute
+  '/769/courseware': typeof R769CoursewareRoute
+  '/769/questionnaire': typeof R769QuestionnaireRoute
+  '/769/video': typeof R769VideoRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
 }
@@ -194,8 +226,10 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/financial': typeof FinancialRoute
   '/order_mgt': typeof OrdermgtRouteWithChildren
-  '/questionnaire': typeof QuestionnaireRoute
   '/waybill_tracking': typeof WaybilltrackingRoute
+  '/769/courseware': typeof R769CoursewareRoute
+  '/769/questionnaire': typeof R769QuestionnaireRoute
+  '/769/video': typeof R769VideoRoute
   '/order_mgt/order_create': typeof OrdermgtOrdercreateRoute
   '/order_mgt/order_list': typeof OrdermgtOrderlistRoute
 }
@@ -208,8 +242,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/financial'
     | '/order_mgt'
-    | '/questionnaire'
     | '/waybill_tracking'
+    | '/769/courseware'
+    | '/769/questionnaire'
+    | '/769/video'
     | '/order_mgt/order_create'
     | '/order_mgt/order_list'
   fileRoutesByTo: FileRoutesByTo
@@ -219,8 +255,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/financial'
     | '/order_mgt'
-    | '/questionnaire'
     | '/waybill_tracking'
+    | '/769/courseware'
+    | '/769/questionnaire'
+    | '/769/video'
     | '/order_mgt/order_create'
     | '/order_mgt/order_list'
   id:
@@ -230,8 +268,10 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/financial'
     | '/order_mgt'
-    | '/questionnaire'
     | '/waybill_tracking'
+    | '/769/courseware'
+    | '/769/questionnaire'
+    | '/769/video'
     | '/order_mgt/order_create'
     | '/order_mgt/order_list'
   fileRoutesById: FileRoutesById
@@ -243,8 +283,10 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   FinancialRoute: typeof FinancialRoute
   OrdermgtRoute: typeof OrdermgtRouteWithChildren
-  QuestionnaireRoute: typeof QuestionnaireRoute
   WaybilltrackingRoute: typeof WaybilltrackingRoute
+  R769CoursewareRoute: typeof R769CoursewareRoute
+  R769QuestionnaireRoute: typeof R769QuestionnaireRoute
+  R769VideoRoute: typeof R769VideoRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -253,8 +295,10 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   FinancialRoute: FinancialRoute,
   OrdermgtRoute: OrdermgtRouteWithChildren,
-  QuestionnaireRoute: QuestionnaireRoute,
   WaybilltrackingRoute: WaybilltrackingRoute,
+  R769CoursewareRoute: R769CoursewareRoute,
+  R769QuestionnaireRoute: R769QuestionnaireRoute,
+  R769VideoRoute: R769VideoRoute,
 }
 
 export const routeTree = rootRoute
@@ -272,8 +316,10 @@ export const routeTree = rootRoute
         "/dashboard",
         "/financial",
         "/order_mgt",
-        "/questionnaire",
-        "/waybill_tracking"
+        "/waybill_tracking",
+        "/769/courseware",
+        "/769/questionnaire",
+        "/769/video"
       ]
     },
     "/": {
@@ -295,11 +341,17 @@ export const routeTree = rootRoute
         "/order_mgt/order_list"
       ]
     },
-    "/questionnaire": {
-      "filePath": "questionnaire.tsx"
-    },
     "/waybill_tracking": {
       "filePath": "waybill_tracking.tsx"
+    },
+    "/769/courseware": {
+      "filePath": "769.courseware.tsx"
+    },
+    "/769/questionnaire": {
+      "filePath": "769.questionnaire.tsx"
+    },
+    "/769/video": {
+      "filePath": "769.video.tsx"
     },
     "/order_mgt/order_create": {
       "filePath": "order_mgt.order_create.tsx",

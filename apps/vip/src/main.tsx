@@ -2,6 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { App } from '@gkd/app';
 import { RouterProvider } from './router';
 import trans from './i18n/common.json';
+import './main.less';
 
 (async function main() {
   App.bootstrap({

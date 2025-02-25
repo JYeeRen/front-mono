@@ -1,0 +1,33 @@
+.container {
+  // max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.list {
+  flex: 1;
+  margin-left: 20px;
+  height: 100%;
+}
+
+.player {
+  flex: 4;
+  background-color: black;
+  height: 100%;
+}
+
+.btn {
+  width: 200px;
+  margin: 5px;
+}
+
+:global {
+  .video-react-big-play-button:hover {
+    background-color: #e64a19 !important; /* 悬停时改变颜色 */
+    transform: scale(1.1); /* 悬停时放大 */
+    transition: all 0.3s ease;
+  }
+}

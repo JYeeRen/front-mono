@@ -90,7 +90,7 @@ export class ErrorBoundary extends Component<BoundaryProps> {
    */
   private catchRejectEvent(error: PromiseRejectionEvent): void {
     console.error(error);
-    message.error('666');
+    message.error('出错了');
     // logger.errorBoundary("catchRejectEvent");
     // logger.errorBoundary(error);
     // const parsed = this.handler.handleRejectError(error);

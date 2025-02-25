@@ -14,6 +14,7 @@ export function bootstrap(options?: BootStrapOptions) {
   
   const appName = options?.appName ?? 'app';
   store.init(appName);
+
   logger.boot('0x00 init @gkd/store', { appName });
 
   const lng: Lng = store.get('lang') ?? 'zh-CN';

@@ -1,9 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Navigate  } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
-})
+});
+
 
 function RouteComponent() {
-  return <div>Hello "/"!</div>
+  // return <div>Hello "/"!</div>
+  return <Navigate to="/769/courseware" />;
 }
