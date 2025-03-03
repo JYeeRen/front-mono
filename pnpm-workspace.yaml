@@ -2,3 +2,16 @@ packages:
   - apps/*
   - packages/*
   - features/*
+
+catalog:
+  typescript: ^5.7.3
+  "@types/node": "^22.13.1"
+  vite: "^6.1.0"
+  turbo: "^2.4.1"
+
+catalogs:
+  react18:
+    react: ^18.3.1
+    react-dom: ^18.3.1
+    "@types/react": ^18.3.18
+    "@types/react-dom": ^18.3.5

@@ -1,0 +1,17 @@
+{
+  "name": "@repo/storage",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "types": "index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "packageManager": "pnpm@10.5.2",
+  "dependencies": {
+    "localforage": "1.10.0",
+    "store2": "2.14.4"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  }
+}

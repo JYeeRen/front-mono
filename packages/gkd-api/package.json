@@ -7,12 +7,9 @@
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@gkd/djs": "workspace:^",
-    "@gkd/store": "workspace:^",
+    "@repo/storage": "workspace:^",
     "@tanstack/react-query-devtools": "^5.66.0",
     "tsconfig": "workspace:^",
     "uuid": "^11.0.5"
@@ -20,10 +17,5 @@
   "dependencies": {
     "@tanstack/react-query": "^5.66.0",
     "axios": "^1.7.9"
-  },
-  "peerDependencies": {
-    "@gkd/djs": "workspace:^",
-    "@gkd/store": "workspace:^",
-    "uuid": "^11.0.5"
   }
 }

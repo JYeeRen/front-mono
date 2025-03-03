@@ -1,16 +1,14 @@
 {
-  "name": "@gkd/djs",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@repo/dayjs",
+  "version": "0.0.0",
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
-    "dayjs": "^1.11.13",
     "tsconfig": "workspace:^"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13"
   }
 }
