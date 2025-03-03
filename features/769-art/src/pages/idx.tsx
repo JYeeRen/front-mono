@@ -3,6 +3,7 @@ import {
   RiFilePaperLine,
   RiFileVideoLine,
   RiFileDownloadLine,
+  RiHome3Line,
 } from 'react-icons/ri';
 import styles from './index.module.less';
 
@@ -16,7 +17,14 @@ export function Index({ navigate }: Props) {
       <section className={styles.container}>
         <div
           className={styles.wrapper}
-          onClick={() => navigate({ to: '/769/video' })}
+          onClick={() => navigate({ to: '/' })}
+        >
+          <RiHome3Line className={styles.icon} />
+          <span>首页</span>
+        </div>
+        <div
+          className={styles.wrapper}
+          onClick={() => navigate({ to: '/769/video' })}  
         >
           <RiFileVideoLine className={styles.icon} />
           <span>视频观看</span>

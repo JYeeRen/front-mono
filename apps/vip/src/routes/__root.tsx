@@ -1,7 +1,6 @@
 // import { net } from '@gkd/app';
 import { Index } from '@feture/769-art';
 import { createRootRoute, useNavigate, Outlet } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 // import { useEffect } from 'react';
 
 export function RootComponent() {
@@ -15,8 +14,9 @@ export function RootComponent() {
 
   return (
     <>
-      <Index navigate={navigate} />
-      {/* <div className="p-2 flex gap-2">
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Index navigate={navigate} />
+        {/* <div className="p-2 flex gap-2">
         <Link preload={false} to="/" className="[&.active]:font-bold">
           Home
         </Link>
@@ -51,8 +51,11 @@ export function RootComponent() {
         {' | '}
       </div>
       <hr /> */}
-      <Outlet />
-      <TanStackRouterDevtools />
+        <div style={{ flex: 1 }}>
+          <Outlet />
+        </div>
+        {/* <TanStackRouterDevtools /> */}
+      </div>
     </>
   );
 }
