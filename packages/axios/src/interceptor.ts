@@ -1,13 +1,8 @@
 import { InternalAxiosRequestConfig } from 'axios';
 import { v4 } from 'uuid';
 
-export function requestInterceptor(config: InternalAxiosRequestConfig) {
-  config.headers = config.headers || {};
-  config.headers['X-Request-Id'] = v4();
-  // config.headers.Authorization = `Bearer ${store.get('token')}`;
-  // config.headers.Lang = store.get('lang') || 'zh-CN';
-  // config.headers.tz = djs.tz.guess();
-  // config.headers.Utcoffset = djs().utcOffset() * 60;
+export function requestIdInterceptor(config: InternalAxiosRequestConfig) {
+  config.headers.set('X-Request-Id', v4());
   return config;
 }
 

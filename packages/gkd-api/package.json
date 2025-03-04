@@ -8,7 +8,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "@gkd/djs": "workspace:^",
+    "@repo/dayjs": "workspace:^",
     "@repo/storage": "workspace:^",
     "@tanstack/react-query-devtools": "^5.66.0",
     "tsconfig": "workspace:^",

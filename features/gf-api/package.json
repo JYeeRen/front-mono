@@ -5,5 +5,11 @@
   "types": "index.ts",
   "scripts": {
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:^"
+  },
+  "dependencies": {
+    "@repo/axios": "workspace:^"
   }
 }

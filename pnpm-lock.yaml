@@ -154,6 +154,16 @@ importers:
         specifier: ^6.1.0
         version: 6.2.0(@types/node@22.13.8)(less@4.2.2)(tsx@4.19.3)
 
+  features/gf-api:
+    dependencies:
+      '@repo/axios':
+        specifier: workspace:^
+        version: link:../../packages/axios
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../../packages/tsconfig
+
   packages/axios:
     dependencies:
       axios:
@@ -165,6 +175,16 @@ importers:
       uuid:
         specifier: ^11.0.5
         version: 11.1.0
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../tsconfig
+
+  packages/dayjs:
+    dependencies:
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
     devDependencies:
       tsconfig:
         specifier: workspace:^
@@ -228,9 +248,9 @@ importers:
         specifier: ^1.7.9
         version: 1.8.1
     devDependencies:
-      '@gkd/djs':
+      '@repo/dayjs':
         specifier: workspace:^
-        version: link:../gkd-djs
+        version: link:../dayjs
       '@repo/storage':
         specifier: workspace:^
         version: link:../storage
@@ -252,15 +272,15 @@ importers:
       '@gkd/components':
         specifier: workspace:^
         version: link:../gkd-components
-      '@gkd/djs':
-        specifier: workspace:^
-        version: link:../gkd-djs
       '@gkd/i18n':
         specifier: workspace:^
         version: link:../gkd-i18n
       '@gkd/logger':
         specifier: workspace:^
         version: link:../gkd-logger
+      '@repo/dayjs':
+        specifier: workspace:^
+        version: link:../dayjs
       '@repo/storage':
         specifier: workspace:^
         version: link:../storage

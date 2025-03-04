@@ -13,7 +13,7 @@
   "dependencies": {
     "@gkd/api": "workspace:^",
     "@gkd/components": "workspace:^",
-    "@gkd/djs": "workspace:^",
+    "@repo/dayjs": "workspace:^",
     "@gkd/i18n": "workspace:^",
     "@gkd/logger": "workspace:^",
     "@repo/storage": "workspace:^"

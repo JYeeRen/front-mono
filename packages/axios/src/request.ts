@@ -2,12 +2,12 @@ import axios from 'axios';
 import { instance } from './instance';
 import type { Body, Params, ReqConfig, URLs } from './type';
 
-async function post<URL extends URLs>(
+async function post<URL extends URLs, T = any>(
   url: URL,
   data?: Body<URL>['data'],
   config?: ReqConfig<URL>,
 ) {
-  return await instance.request({
+  return await instance.request<T>({
     method: 'POST',
     url: url,
     data: data,
@@ -15,12 +15,12 @@ async function post<URL extends URLs>(
   });
 }
 
-async function get<URL extends URLs>(
+async function get<URL extends URLs, T = any>(
   url: URL,
   data?: Params<URL>['params'],
   config?: ReqConfig<URL>,
 ) {
-  return await instance.request({
+  return await instance.request<T>({
     method: 'GET',
     url: url,
     data: data,
