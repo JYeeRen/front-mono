@@ -1,34 +1,94 @@
-import { AxiosRequestConfig } from 'axios';
+import type {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+  InternalAxiosRequestConfig,
+} from 'axios';
 
-export interface Register {
-  'api/noParams': {
-    res?: { str: 'noParams' };
-  };
-  'api/noRes': {
-    data: { str: '' };
-  };
-  'api/both': {
-    data: { str: string };
-    res: { str: 'both' };
-  };
+export type CustomAxiosRequestConfig = AxiosRequestConfig;
+
+export interface RequestOption<ResponseData = any> {
+  /**
+   * The hook before request
+   *
+   * For example: You can add header token in this hook
+   *
+   * @param config Axios config
+   */
+  onRequest: (
+    config: InternalAxiosRequestConfig,
+  ) => InternalAxiosRequestConfig | Promise<InternalAxiosRequestConfig>;
+  /**
+   * The hook to check backend response is success or not
+   *
+   * @param response Axios response
+   */
+  isBackendSuccess: (response: AxiosResponse<ResponseData>) => boolean;
+  /**
+   * The hook after backend request fail
+   *
+   * For example: You can handle the expired token in this hook
+   *
+   * @param response Axios response
+   * @param instance Axios instance
+   */
+  onBackendFail: (
+    response: AxiosResponse<ResponseData>,
+    instance: AxiosInstance
+  ) => Promise<AxiosResponse | null> | Promise<void>;
+  /**
+   * transform backend response when the responseType is json
+   *
+   * @param response Axios response
+   */
+  transformBackendResponse(
+    response: AxiosResponse<ResponseData>,
+  ): any | Promise<any>;
+  /**
+   * The hook to handle error
+   *
+   * For example: You can show error message in this hook
+   *
+   * @param error
+   */
+  onError: (error: AxiosError<ResponseData>) => void | Promise<void>;
 }
 
-export type Api = Register;
+export interface RequestInstanceCommon<T> {
+  /**
+   * cancel the request by request id
+   *
+   * if the request provide abort controller sign from config, it will not collect in the abort controller map
+   *
+   * @param requestId
+   */
+  cancelRequest: (requestId: string) => void;
+  /**
+   * cancel all request
+   *
+   * if the request provide abort controller sign from config, it will not collect in the abort controller map
+   */
+  cancelAllRequest: () => void;
+  /** you can set custom state in the request instance */
+  state: T;
+}
 
-export type URLs = keyof Api;
+/** The request instance */
+export interface RequestInstance<S = Record<string, unknown>>  extends RequestInstanceCommon<S> {
+  <T = any>(config: AxiosRequestConfig): Promise<T>;
+}
 
-export type Res<Url extends URLs> = Api[Url] extends { res: infer R }
-  ? R
-  : Api[Url] extends { res?: infer R }
-    ? R | undefined
-    : undefined;
 
-export type Body<URL extends URLs> = Api[URL] extends { data: infer D }
-  ? { data: D | (() => D) }
-  : { data?: undefined };
+interface ResponseMap {
+  blob: Blob;
+  text: string;
+  arrayBuffer: ArrayBuffer;
+  stream: ReadableStream<Uint8Array>;
+  document: Document;
+}
+export type ResponseType = keyof ResponseMap | 'json';
 
-export type Params<URL extends URLs> = Api[URL] extends { params: infer D }
-  ? { params: D | (() => D) }
-  : { params?: undefined };
-
-export type ReqConfig<URL extends URLs> = AxiosRequestConfig & Body<URL> & Params<URL>;
+export type MappedType<R extends ResponseType, JsonType = any> = R extends keyof ResponseMap
+  ? ResponseMap[R]
+  : JsonType;

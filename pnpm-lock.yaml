@@ -15,6 +15,9 @@ catalogs:
     typescript:
       specifier: ^5.7.3
       version: 5.7.3
+    vite:
+      specifier: ^6.1.0
+      version: 6.2.0
   react18:
     '@types/react':
       specifier: ^18.3.18
@@ -163,6 +166,19 @@ importers:
       tsconfig:
         specifier: workspace:^
         version: link:../../packages/tsconfig
+
+  packages/app:
+    dependencies:
+      '@repo/axios':
+        specifier: workspace:^
+        version: link:../axios
+    devDependencies:
+      tsconfig:
+        specifier: workspace:^
+        version: link:../tsconfig
+      vite:
+        specifier: 'catalog:'
+        version: 6.2.0(@types/node@22.13.8)(less@4.2.2)(tsx@4.19.3)
 
   packages/axios:
     dependencies:

@@ -1,11 +1,22 @@
-import { createInstance } from '@repo/axios';
+import { createRequest } from '@repo/axios';
 
-export { net } from '@repo/axios';
-export type { Api, Register } from '@repo/axios';
+interface ApiSuccess<T = unknown> {
+  code: 0;
+  data: T;
+  msg?: string;
+}
 
-export function init(baseURL: string) {
-  createInstance({
-    baseURL,
-    timeout: 0,
-  });
+interface ApiError<T = unknown> {
+  code: number;
+  data: T;
+  msg?: string;
+}
+
+export async function init(baseURL: string) {
+  const request = createRequest<ApiSuccess>({
+    baseURL
+  })
+
+  const res = await request({ url: 'api/noParams' });
+  res.data;
 }
